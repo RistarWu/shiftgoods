@@ -1,3 +1,5 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ShiftGoods
@@ -14,23 +16,48 @@ namespace ShiftGoods
         private static readonly Color HighlightColor = new Color(1f, 0.94f, 0.25f);
         private static MaterialPropertyBlock highlightBlock;
 
+        internal static readonly HashSet<RollableProduct> ActiveProducts = new HashSet<RollableProduct>();
+        internal static event Action<RollableProduct> Enabled;
+
         private Collider[] colliders;
+        private FixedJoint attachment;
         private Renderer[] productRenderers;
         private MaterialPropertyBlock[] previousBlocks;
         private bool isHighlighted;
 
         public Rigidbody Body { get; private set; }
+        public ProductAbility Ability { get; private set; }
+        public bool IsCarried => attachment != null && attachment.connectedBody != null;
+        internal bool IsControlled { get; set; }
+        internal float PortalCooldownUntil { get; set; }
+        internal IReadOnlyList<Collider> OwnColliders => colliders;
         public Vector3 Center => transform.position + transform.rotation * Body.centerOfMass;
 
         private void Awake()
         {
             Body = GetComponent<Rigidbody>();
+            Ability = GetComponent<ProductAbility>();
             colliders = GetComponentsInChildren<Collider>();
+        }
+
+        private void OnEnable()
+        {
+            ActiveProducts.Add(this);
+            Enabled?.Invoke(this);
         }
 
         private void OnDisable()
         {
+            ActiveProducts.Remove(this);
             SetHighlighted(false);
+        }
+
+        internal FixedJoint StickTo(Rigidbody carrier)
+        {
+            attachment = gameObject.AddComponent<FixedJoint>();
+            attachment.connectedBody = carrier;
+            attachment.enableCollision = false;
+            return attachment;
         }
 
         public void SetHighlighted(bool highlighted)
