@@ -202,7 +202,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-<<<<<<< HEAD
 --- !u!1 &28785875
 GameObject:
   m_ObjectHideFlags: 0
@@ -390,8 +389,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 3
-=======
->>>>>>> parent of b15c34e (CartoonShader)
 --- !u!1 &144730632
 GameObject:
   m_ObjectHideFlags: 0
