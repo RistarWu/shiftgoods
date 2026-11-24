@@ -13,19 +13,28 @@ namespace ShiftGoods
         [SerializeField, Min(0.1f)] private float walkSpeed = 4.5f;
         [SerializeField, Min(0.1f)] private float cameraDistance = 4.2f;
         [SerializeField, Min(0f)] private float cameraHeight = 1.05f;
+        [SerializeField] private LayerMask cameraObstacles;
+        [SerializeField, Min(0.01f)] private float cameraClearance = 0.11f;
         [SerializeField, Min(0.1f)] private float mouseSensitivity = 2.2f;
         [SerializeField] private float startingPitch = 15f;
 
-        private readonly RaycastHit[] hitBuffer = new RaycastHit[24];
+        private readonly RaycastHit[] exitFloorHits = new RaycastHit[24];
         private Collider[] overlapBuffer = new Collider[32];
         private CharacterController avatar;
         private Renderer[] avatarRenderers;
         private RollableProduct possessed;
         private RollableProduct highlightedProduct;
         private Vector3 movement;
+        private float verticalMovement;
         private float yaw;
         private float pitch;
+        private float cameraArmLength;
         private int ignoreLookThroughFrame;
+        private bool abilityPressed;
+        private bool abilityHeld;
+        private bool waitForAbilityRelease;
+
+        private Ray AbilityAim => view.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
         private Vector3 ControlCenter => possessed != null
             ? possessed.Center
@@ -36,17 +45,22 @@ namespace ShiftGoods
             avatar = GetComponent<CharacterController>();
             avatarRenderers = GetComponentsInChildren<Renderer>();
             pitch = startingPitch;
+            cameraArmLength = cameraDistance;
             yaw = view.transform.eulerAngles.y;
         }
 
         private void OnEnable()
         {
+            if (possessed != null)
+                possessed.IsControlled = true;
+
             LockCursor();
         }
 
         private void OnDisable()
         {
             SetHighlightedProduct(null);
+            EndProductControl();
             UnlockCursor();
         }
 
@@ -55,11 +69,25 @@ namespace ShiftGoods
             if (Input.GetKeyDown(KeyCode.Escape))
                 UnlockCursor();
             if (Input.GetMouseButtonDown(0) && Cursor.lockState != CursorLockMode.Locked)
+            {
                 LockCursor();
+                waitForAbilityRelease = true;
+            }
+
+            if (!Input.GetMouseButton(0))
+                waitForAbilityRelease = false;
 
             movement = Vector3.zero;
+            verticalMovement = 0f;
+            abilityHeld = false;
             if (Cursor.lockState == CursorLockMode.Locked)
             {
+                if (!waitForAbilityRelease)
+                {
+                    abilityPressed |= Input.GetMouseButtonDown(0);
+                    abilityHeld = Input.GetMouseButton(0);
+                }
+
                 if (Time.frameCount > ignoreLookThroughFrame)
                 {
                     yaw += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
@@ -69,7 +97,12 @@ namespace ShiftGoods
                 float x = (Input.GetKey(KeyCode.D) ? 1f : 0f) - (Input.GetKey(KeyCode.A) ? 1f : 0f);
                 float z = (Input.GetKey(KeyCode.W) ? 1f : 0f) - (Input.GetKey(KeyCode.S) ? 1f : 0f);
                 movement = Quaternion.Euler(0f, yaw, 0f) * Vector3.ClampMagnitude(new Vector3(x, 0f, z), 1f);
+                bool descend = Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl);
+                verticalMovement = (Input.GetKey(KeyCode.Space) ? 1f : 0f) - (descend ? 1f : 0f);
             }
+
+            if (Cursor.lockState != CursorLockMode.Locked)
+                abilityPressed = false;
 
             if (possessed == null)
             {
@@ -84,7 +117,20 @@ namespace ShiftGoods
         private void FixedUpdate()
         {
             if (possessed != null)
-                possessed.Roll(movement);
+            {
+                ProductAbility ability = possessed.Ability;
+                if (ability != null && ability.isActiveAndEnabled)
+                {
+                    Vector3 input = movement;
+                    if (ability.UsesVerticalInput)
+                        input.y = verticalMovement;
+                    ability.Step(input, AbilityAim, abilityPressed, abilityHeld);
+                }
+                else
+                    possessed.Roll(movement);
+            }
+
+            abilityPressed = false;
         }
 
         private void LateUpdate()
@@ -104,30 +150,54 @@ namespace ShiftGoods
             }
 
             UpdateView();
+            if (possessed != null && possessed.Ability != null && possessed.Ability.isActiveAndEnabled)
+                possessed.Ability.Preview(AbilityAim);
         }
 
         private bool TryPossessHighlightedProduct()
         {
-            if (highlightedProduct == null)
+            if (highlightedProduct == null || highlightedProduct.IsCarried)
                 return false;
 
+            EndProductControl();
             possessed = highlightedProduct;
+            possessed.TryMakeDynamic();
+            possessed.IsControlled = true;
             SetAvatarVisible(false);
             return true;
+        }
+
+        private void EndProductControl()
+        {
+            if (possessed != null)
+            {
+                possessed.IsControlled = false;
+                if (possessed.Ability != null)
+                    possessed.Ability.StopUsing();
+            }
+
+            abilityPressed = false;
+            abilityHeld = false;
+            waitForAbilityRelease = Input.GetMouseButton(0);
         }
 
         private void UpdateView()
         {
             Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
             Vector3 anchor = ControlCenter + Vector3.up * cameraHeight;
-            Vector3 rear = rotation * Vector3.back;
-            const float cameraRadius = 0.24f;
+            Vector3 backward = rotation * Vector3.back;
+            float desiredLength = cameraDistance;
+            if (Physics.SphereCast(anchor, cameraClearance, backward, out RaycastHit obstruction,
+                    cameraDistance, cameraObstacles, QueryTriggerInteraction.Ignore))
+                desiredLength = Mathf.Max(0f, obstruction.distance - 0.025f);
+            if (Physics.Raycast(anchor, backward, out RaycastHit surface, desiredLength,
+                    cameraObstacles, QueryTriggerInteraction.Ignore))
+                desiredLength = Mathf.Max(0f, surface.distance - cameraClearance);
 
-            float distance = cameraDistance;
-            if (FindHit(new Ray(anchor, rear), distance, cameraRadius, out RaycastHit obstacle))
-                distance = Mathf.Max(0.05f, obstacle.distance - 0.05f);
-
-            view.transform.SetPositionAndRotation(anchor + rear * distance, rotation);
+            // Retract immediately at a wall and ease back out once there is room.
+            cameraArmLength = Mathf.Min(desiredLength,
+                Mathf.MoveTowards(cameraArmLength, desiredLength, 6f * Time.deltaTime));
+            view.transform.SetPositionAndRotation(anchor + backward * cameraArmLength, rotation);
         }
 
         private void UpdatePossessionTarget()
@@ -148,7 +218,7 @@ namespace ShiftGoods
                 Collider hit = overlapBuffer[i];
                 Rigidbody body = hit.attachedRigidbody;
                 if (body == null || !body.TryGetComponent(out RollableProduct product)
-                    || product == possessed || !product.isActiveAndEnabled)
+                    || product == possessed || product.IsCarried || !product.isActiveAndEnabled)
                     continue;
 
                 float distance = (hit.ClosestPoint(center) - center).sqrMagnitude;
@@ -185,11 +255,11 @@ namespace ShiftGoods
             {
                 Vector3 direction = Quaternion.Euler(0f, nearYaw + 45f * side, 0f) * Vector3.forward;
                 float clearance = Mathf.Abs(direction.x) * bounds.extents.x
-                    + Mathf.Abs(direction.z) * bounds.extents.z + avatar.radius + 0.18f;
+                    + Mathf.Abs(direction.z) * bounds.extents.z + avatar.radius * 1.55f;
                 Vector3 start = bounds.center + direction * clearance;
                 start.y = bounds.max.y + 1f;
 
-                if (!FindHit(new Ray(start, Vector3.down), bounds.size.y + 3f, 0f, out RaycastHit floor)
+                if (!TryFindExitFloor(new Ray(start, Vector3.down), bounds.size.y + 3f, out RaycastHit floor)
                     || Vector3.Angle(Vector3.up, floor.normal) > avatar.slopeLimit)
                     continue;
 
@@ -200,6 +270,7 @@ namespace ShiftGoods
                     continue;
 
                 transform.position = position;
+                EndProductControl();
                 possessed = null;
                 SetAvatarVisible(true);
                 return true;
@@ -208,19 +279,13 @@ namespace ShiftGoods
             return false;
         }
 
-        private bool FindHit(Ray ray, float distance, float radius, out RaycastHit closest)
+        private bool TryFindExitFloor(Ray ray, float distance, out RaycastHit closest)
         {
-            int count = radius > 0f
-                ? Physics.SphereCastNonAlloc(ray, radius, hitBuffer, distance, ~0, QueryTriggerInteraction.Ignore)
-                : Physics.RaycastNonAlloc(ray, hitBuffer, distance, ~0, QueryTriggerInteraction.Ignore);
-
-            RaycastHit[] hits = hitBuffer;
-            if (count == hitBuffer.Length)
+            int count = Physics.RaycastNonAlloc(ray, exitFloorHits, distance, ~0, QueryTriggerInteraction.Ignore);
+            RaycastHit[] hits = exitFloorHits;
+            if (count == hits.Length)
             {
-                // Non-allocating queries can omit the nearest hit when their buffers fill.
-                hits = radius > 0f
-                    ? Physics.SphereCastAll(ray, radius, distance, ~0, QueryTriggerInteraction.Ignore)
-                    : Physics.RaycastAll(ray, distance, ~0, QueryTriggerInteraction.Ignore);
+                hits = Physics.RaycastAll(ray, distance, ~0, QueryTriggerInteraction.Ignore);
                 count = hits.Length;
             }
 
@@ -229,7 +294,7 @@ namespace ShiftGoods
             for (int i = 0; i < count; i++)
             {
                 RaycastHit hit = hits[i];
-                if (hit.collider == avatar || (possessed != null && hit.rigidbody == possessed.Body))
+                if (hit.collider == avatar || hit.rigidbody == possessed.Body)
                     continue;
 
                 if (hit.distance < nearestDistance)

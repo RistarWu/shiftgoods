@@ -1,0 +1,21 @@
+Fresh Market 3D assets
+
+ProduceDisplay
+Grab3D Produce Display, lightweight version, CC0 1.0.
+https://grab3d.com/models/furniture/produce-display/
+
+FishIceCounter
+Innerscene Fish counter stall with ice tray, CC0 1.0.
+https://www.innerscene.com/tools/library/3d-parts/fish-counter-stall-with-ice-tray-f94d7ee6
+
+CurvedFreshCounter
+Innerscene Serve-over meat display counter 2.0 m, curved glass, CC0 1.0.
+https://www.innerscene.com/tools/library/3d-parts/serve-over-meat-display-counter-2-0-m-curved-glass-217dca9a
+
+LowPolyCrab
+Grab3D Low Poly Crab, CC0 1.0.
+https://grab3d.com/models/animals/low-poly-crab/
+
+KenneyFoodKit
+Kenney Food Kit 2.0, CC0 1.0. See the original License.txt inside the pack.
+https://kenney.nl/assets/food-kit

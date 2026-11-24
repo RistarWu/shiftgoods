@@ -136,3 +136,11 @@ crashlytics-build.properties
 
 # Auto-generated cache in Assets folder
 /[Aa]ssets/[Ss]ceneDependencyCache*
+
+# Per-developer Unity MCP and AI client connections
+/ProjectSettings/McpUnitySettings.json
+/.codex/config.toml
+/.cursor/mcp.json
+/.vscode/mcp.json
+/.mcp.json
+/opencode.json
