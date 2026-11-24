@@ -212,9 +212,6 @@ MonoBehaviour:
   acceleration: 14
   airflow: {fileID: 8318544421855319146}
   driveSpeed: 3
-  recoil: 4
-  liftMultiplier: 1.08
-  uprightStrength: 9
 --- !u!1 &4801665553893635048
 GameObject:
   m_ObjectHideFlags: 0

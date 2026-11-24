@@ -13,6 +13,8 @@ namespace ShiftGoods
         [SerializeField, Min(0.1f)] private float walkSpeed = 4.5f;
         [SerializeField, Min(0.1f)] private float cameraDistance = 4.2f;
         [SerializeField, Min(0f)] private float cameraHeight = 1.05f;
+        [SerializeField] private LayerMask cameraObstacles;
+        [SerializeField, Min(0.01f)] private float cameraClearance = 0.11f;
         [SerializeField, Min(0.1f)] private float mouseSensitivity = 2.2f;
         [SerializeField] private float startingPitch = 15f;
 
@@ -26,6 +28,7 @@ namespace ShiftGoods
         private float verticalMovement;
         private float yaw;
         private float pitch;
+        private float cameraArmLength;
         private int ignoreLookThroughFrame;
         private bool abilityPressed;
         private bool abilityHeld;
@@ -42,6 +45,7 @@ namespace ShiftGoods
             avatar = GetComponent<CharacterController>();
             avatarRenderers = GetComponentsInChildren<Renderer>();
             pitch = startingPitch;
+            cameraArmLength = cameraDistance;
             yaw = view.transform.eulerAngles.y;
         }
 
@@ -157,6 +161,7 @@ namespace ShiftGoods
 
             EndProductControl();
             possessed = highlightedProduct;
+            possessed.TryMakeDynamic();
             possessed.IsControlled = true;
             SetAvatarVisible(false);
             return true;
@@ -180,7 +185,19 @@ namespace ShiftGoods
         {
             Quaternion rotation = Quaternion.Euler(pitch, yaw, 0f);
             Vector3 anchor = ControlCenter + Vector3.up * cameraHeight;
-            view.transform.SetPositionAndRotation(anchor + rotation * Vector3.back * cameraDistance, rotation);
+            Vector3 backward = rotation * Vector3.back;
+            float desiredLength = cameraDistance;
+            if (Physics.SphereCast(anchor, cameraClearance, backward, out RaycastHit obstruction,
+                    cameraDistance, cameraObstacles, QueryTriggerInteraction.Ignore))
+                desiredLength = Mathf.Max(0f, obstruction.distance - 0.025f);
+            if (Physics.Raycast(anchor, backward, out RaycastHit surface, desiredLength,
+                    cameraObstacles, QueryTriggerInteraction.Ignore))
+                desiredLength = Mathf.Max(0f, surface.distance - cameraClearance);
+
+            // Retract immediately at a wall and ease back out once there is room.
+            cameraArmLength = Mathf.Min(desiredLength,
+                Mathf.MoveTowards(cameraArmLength, desiredLength, 6f * Time.deltaTime));
+            view.transform.SetPositionAndRotation(anchor + backward * cameraArmLength, rotation);
         }
 
         private void UpdatePossessionTarget()
@@ -238,7 +255,7 @@ namespace ShiftGoods
             {
                 Vector3 direction = Quaternion.Euler(0f, nearYaw + 45f * side, 0f) * Vector3.forward;
                 float clearance = Mathf.Abs(direction.x) * bounds.extents.x
-                    + Mathf.Abs(direction.z) * bounds.extents.z + avatar.radius + 0.18f;
+                    + Mathf.Abs(direction.z) * bounds.extents.z + avatar.radius * 1.55f;
                 Vector3 start = bounds.center + direction * clearance;
                 start.y = bounds.max.y + 1f;
 

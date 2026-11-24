@@ -76,8 +76,8 @@ namespace ShiftGoods
             }
 
             Rigidbody selected = hit.rigidbody;
-            if (selected == null || selected.isKinematic || !selected.TryGetComponent(out RollableProduct target)
-                || !target.isActiveAndEnabled || target.IsCarried || target.IsControlled
+            if (selected == null || !selected.TryGetComponent(out RollableProduct target)
+                || !target.isActiveAndEnabled || !target.CanBecomeDynamic || target.IsCarried || target.IsControlled
                 || (target.Ability is SeaUrchinAbility urchin && urchin.HasCargo)
                 || (hit.point - Product.Center).sqrMagnitude > loadRange * loadRange)
                 return null;
@@ -97,6 +97,9 @@ namespace ShiftGoods
                 Vector3 center = loadPoint.position + Vector3.up * height;
                 if (!CanFit(target, center, bounds.extents))
                     continue;
+
+                if (!target.TryMakeDynamic())
+                    return;
 
                 Rigidbody cargo = target.Body;
                 cargo.position += center - bounds.center;

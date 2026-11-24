@@ -11,6 +11,9 @@ namespace ShiftGoods
         [SerializeField, Min(0.1f)] private float rollSpeed = 7f;
         [SerializeField, Min(0.1f)] private float rollAcceleration = 90f;
 
+        [SerializeField, Min(0f)] private float rollMoveSpeed;
+        [SerializeField] private bool restingOnDisplay;
+
         private static readonly int ColorId = Shader.PropertyToID("_Color");
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
         private static readonly Color HighlightColor = new Color(1f, 0.94f, 0.25f);
@@ -28,6 +31,7 @@ namespace ShiftGoods
         public Rigidbody Body { get; private set; }
         public ProductAbility Ability { get; private set; }
         public bool IsCarried => attachment != null && attachment.connectedBody != null;
+        internal bool CanBecomeDynamic => restingOnDisplay || !Body.isKinematic;
         internal bool IsControlled { get; set; }
         internal float PortalCooldownUntil { get; set; }
         internal IReadOnlyList<Collider> OwnColliders => colliders;
@@ -36,6 +40,9 @@ namespace ShiftGoods
         private void Awake()
         {
             Body = GetComponent<Rigidbody>();
+            if (restingOnDisplay)
+                Body.isKinematic = true;
+
             Ability = GetComponent<ProductAbility>();
             colliders = GetComponentsInChildren<Collider>();
         }
@@ -50,6 +57,17 @@ namespace ShiftGoods
         {
             ActiveProducts.Remove(this);
             SetHighlighted(false);
+        }
+
+        internal bool TryMakeDynamic()
+        {
+            if (restingOnDisplay)
+            {
+                restingOnDisplay = false;
+                Body.isKinematic = false;
+            }
+
+            return !Body.isKinematic;
         }
 
         internal FixedJoint StickTo(Rigidbody carrier)
@@ -106,6 +124,13 @@ namespace ShiftGoods
             float targetSpeed = rollSpeed * inputStrength;
             float acceleration = Mathf.Clamp((targetSpeed - currentSpeed) * 18f, 0f, rollAcceleration);
             Body.AddTorque(axis * acceleration, ForceMode.Acceleration);
+            if (rollMoveSpeed > 0f)
+            {
+                Vector3 groundVelocity = Body.linearVelocity;
+                groundVelocity.y = 0f;
+                Vector3 drive = (direction * rollMoveSpeed - groundVelocity) / Time.fixedDeltaTime;
+                Body.AddForce(Vector3.ClampMagnitude(drive, 15f), ForceMode.Acceleration);
+            }
         }
 
         public Bounds GetSolidBounds()

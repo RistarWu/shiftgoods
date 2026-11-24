@@ -46,7 +46,7 @@ namespace ShiftGoods
             {
                 Collider collider = overlaps[index];
                 Rigidbody target = collider.attachedRigidbody;
-                if (target == null || target == Body || target.isKinematic || affected.Contains(target))
+                if (target == null || target == Body || affected.Contains(target))
                     continue;
 
                 Vector3 offset = target.worldCenterOfMass - origin;
@@ -54,9 +54,13 @@ namespace ShiftGoods
                 if (distance < 0.02f || distance > range || Vector3.Dot(offset / distance, forward) < coneThreshold)
                     continue;
 
+                float strength = pull ? Mathf.Clamp01(distance / 0.75f) : 1f - 0.6f * (distance / range);
+                if (acceleration <= 0f || (target.isKinematic
+                    && (!target.TryGetComponent(out RollableProduct product) || !product.TryMakeDynamic())))
+                    continue;
+
                 affected.Add(target);
                 Vector3 force = pull ? -offset / distance : forward;
-                float strength = pull ? Mathf.Clamp01(distance / 0.75f) : 1f - 0.6f * (distance / range);
                 target.AddForce(force * (acceleration * strength), ForceMode.Acceleration);
             }
         }
