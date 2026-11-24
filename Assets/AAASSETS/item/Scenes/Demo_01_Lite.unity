@@ -85418,6 +85418,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -30.835001
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5004f4dd31f8b3045872f8c712ae4e67, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: df49d073ae346e84abc77214249bc484, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -198771,6 +198775,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: -54.334003
       objectReference: {fileID: 0}
+    - target: {fileID: 2300000, guid: 5004f4dd31f8b3045872f8c712ae4e67, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: df49d073ae346e84abc77214249bc484, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -309369,6 +309377,7 @@ GameObject:
   - component: {fileID: 1897384485}
   - component: {fileID: 1897384484}
   - component: {fileID: 1897384483}
+  - component: {fileID: 1897384486}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -309424,7 +309433,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -309450,6 +309459,39 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1897384486
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897384482}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a64056ccadd7a429d64cf3ee10886d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShiftGame.ShopLights
+  shadowResolution: 512
+  softShadowSampleWidth: 3
+  lights: []
+  extraCasters: []
+  renderCamera: {fileID: 1897384484}
+  outline:
+    outlineShader: {fileID: 0}
+    lineWidth: 2.5
+    featherPixels: 1
+    drawCreases: 0
+    creaseAngle: 55
+    drawLines: 1
+  corners:
+    filterShader: {fileID: 0}
+    radiusPixels: 5
+    edgeTransition: 0.14
+    cutoff: 0.5
+    relativeSigma: 0.4
+    absoluteDepthTolerance: 0.025
+    relativeDepthTolerance: 0.012
+    enabled: 1
 --- !u!1001 &1897624564
 PrefabInstance:
   m_ObjectHideFlags: 0

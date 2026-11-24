@@ -7,6 +7,11 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: colormap
+    second: {fileID: 2100000, guid: 47c941bbe0d2c3d4d91edf0096719957, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: glass
     second: {fileID: 2100000, guid: c6d33ff7cbc59b243b622406d3c6276f, type: 2}
   materials:

@@ -1316,6 +1316,7 @@ GameObject:
   m_Component:
   - component: {fileID: 19301138}
   - component: {fileID: 19301137}
+  - component: {fileID: 19301139}
   m_Layer: 0
   m_Name: Third Person Camera
   m_TagString: MainCamera
@@ -1363,7 +1364,7 @@ Camera:
   m_CullingMask:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_RenderingPath: -1
+  m_RenderingPath: 1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
   m_TargetEye: 3
@@ -1389,6 +1390,40 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &19301139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 19301136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08a64056ccadd7a429d64cf3ee10886d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ShiftGame.ShopLights
+  shadowResolution: 512
+  softShadowSampleWidth: 3
+  lightIntensityScale: 3
+  lights: []
+  extraCasters: []
+  renderCamera: {fileID: 19301137}
+  outline:
+    outlineShader: {fileID: 0}
+    lineWidth: 2.5
+    featherPixels: 1
+    drawCreases: 0
+    creaseAngle: 55
+    drawLines: 1
+  corners:
+    filterShader: {fileID: 0}
+    radiusPixels: 5
+    edgeTransition: 0.14
+    cutoff: 0.5
+    relativeSigma: 0.4
+    absoluteDepthTolerance: 0.025
+    relativeDepthTolerance: 0.012
+    enabled: 1
 --- !u!1001 &22435025
 PrefabInstance:
   m_ObjectHideFlags: 0
