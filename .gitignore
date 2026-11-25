@@ -144,3 +144,7 @@ crashlytics-build.properties
 /.vscode/mcp.json
 /.mcp.json
 /opencode.json
+
+# Keep the original archive local; Unity uses the imported assets.
+/Assets/AAASSETS/AnimeSuburbCity/AnimeSuburbCity.rar
+/Assets/AAASSETS/AnimeSuburbCity/AnimeSuburbCity.rar.meta
