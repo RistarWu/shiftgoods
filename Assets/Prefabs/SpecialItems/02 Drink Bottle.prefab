@@ -403,6 +403,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ShiftGoods.RollableProduct
   rollSpeed: 7
   rollAcceleration: 90
+  rollMoveSpeed: 0
+  restingOnDisplay: 0
 --- !u!114 &3987666343159201730
 MonoBehaviour:
   m_ObjectHideFlags: 0
