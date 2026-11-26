@@ -13,6 +13,7 @@ namespace ShiftGoods
 
         [SerializeField, Min(0f)] private float rollMoveSpeed;
         [SerializeField] private bool restingOnDisplay;
+        [SerializeField, Min(0)] private int checkoutPoints;
 
         private static readonly int ColorId = Shader.PropertyToID("_Color");
         private static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
@@ -29,6 +30,7 @@ namespace ShiftGoods
         private bool isHighlighted;
 
         public Rigidbody Body { get; private set; }
+        public int CheckoutPoints => checkoutPoints;
         public ProductAbility Ability { get; private set; }
         public bool IsCarried => attachment != null && attachment.connectedBody != null;
         internal bool CanBecomeDynamic => restingOnDisplay || !Body.isKinematic;

@@ -246,8 +246,6 @@ namespace ShiftGoods
         private bool TryLeaveProduct()
         {
             Bounds bounds = possessed.GetSolidBounds();
-            float radius = Mathf.Max(0.05f, avatar.radius - avatar.skinWidth);
-            float halfHeight = Mathf.Max(0f, avatar.height * 0.5f - radius);
             float nearYaw = yaw + 180f;
 
             // Try the camera-facing side first, then other sides if blocked.
@@ -264,19 +262,53 @@ namespace ShiftGoods
                     continue;
 
                 Vector3 position = floor.point + Vector3.up * 0.06f;
-                Vector3 center = position + avatar.center;
-                Vector3 vertical = Vector3.up * halfHeight;
-                if (Physics.CheckCapsule(center - vertical, center + vertical, radius, ~0, QueryTriggerInteraction.Ignore))
+                if (AvatarWouldOverlap(position))
                     continue;
 
-                transform.position = position;
-                EndProductControl();
-                possessed = null;
-                SetAvatarVisible(true);
+                ReturnToAvatar(position);
                 return true;
             }
 
             return false;
+        }
+
+        internal void EjectFromCheckout(RollableProduct product, Transform[] releasePoints)
+        {
+            if (possessed != product)
+                return;
+
+            foreach (Transform releasePoint in releasePoints)
+            {
+                if (releasePoint == null)
+                    continue;
+
+                Vector3 position = releasePoint.position + Vector3.up * 0.18f;
+                if (!AvatarWouldOverlap(position))
+                {
+                    ReturnToAvatar(position);
+                    return;
+                }
+            }
+
+            if (!TryLeaveProduct())
+                ReturnToAvatar(transform.position);
+        }
+
+        private bool AvatarWouldOverlap(Vector3 position)
+        {
+            float radius = Mathf.Max(0.05f, avatar.radius - avatar.skinWidth);
+            float halfHeight = Mathf.Max(0f, avatar.height * 0.5f - radius);
+            Vector3 center = position + avatar.center;
+            Vector3 vertical = Vector3.up * halfHeight;
+            return Physics.CheckCapsule(center - vertical, center + vertical, radius, ~0, QueryTriggerInteraction.Ignore);
+        }
+
+        private void ReturnToAvatar(Vector3 position)
+        {
+            transform.position = position;
+            EndProductControl();
+            possessed = null;
+            SetAvatarVisible(true);
         }
 
         private bool TryFindExitFloor(Ray ray, float distance, out RaycastHit closest)
