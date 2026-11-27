@@ -40,6 +40,9 @@ namespace ShiftGame
         [InspectorName("灯光强度倍率"), Min(0f), Tooltip("统一调整此相机的逐灯光强。")]
         [SerializeField] private float lightIntensityScale = 1f;
 
+        [InspectorName("阴影补光"), Range(0f, 1f), Tooltip("在保留二分阴影的同时提亮暗部。")]
+        [SerializeField] private float shadowFill;
+
         [InspectorName("优先灯光"), Tooltip("按此顺序优先纳入已启用的灯，再自动加入当前场景中的其他灯。前八盏灯启用阴影圆角。")]
         [SerializeField] private Light[] lights = Array.Empty<Light>();
 
@@ -61,6 +64,7 @@ namespace ShiftGame
         private static readonly int ShadowVpId = Shader.PropertyToID("_ShopShadowVP");
         private static readonly int ShadowDepthId = Shader.PropertyToID("_ShopShadowDepthParams");
         private static readonly int CountId = Shader.PropertyToID("_ShopLightCount");
+        private static readonly int ShadowFillId = Shader.PropertyToID("_ShopShadowFill");
         private static readonly int RoundedMaskEnabledId = Shader.PropertyToID("_ShopRoundedLightMaskEnabled");
         private static readonly Vector3[] FaceDirections =
         {
@@ -174,6 +178,7 @@ namespace ShiftGame
                 return;
             preparedCamera = camera;
             Shader.SetGlobalFloat("_ShopLightingManaged", 1f);
+            Shader.SetGlobalFloat(ShadowFillId, shadowFill);
             Shader.SetGlobalFloat(RoundedMaskEnabledId, 0f);
 
             // 所有通道共用主眼的细分级别，投影随曲面的实际形状变化。
@@ -293,6 +298,7 @@ namespace ShiftGame
             // 结束本相机的管理模式，其他相机可以直接使用 Unity 自身的主灯。
             corners.FinishCamera(camera);
             Shader.SetGlobalFloat("_ShopLightingManaged", 0f);
+            Shader.SetGlobalFloat(ShadowFillId, 0f);
             Shader.SetGlobalFloat(RoundedMaskEnabledId, 0f);
             Shader.SetGlobalVector("_ShopTessCameraSize", Vector4.zero);
             preparedCamera = null;
@@ -637,6 +643,7 @@ namespace ShiftGame
             }
 
             // X/Y 使用相同的高斯权重，得到圆对称模糊，再对每盏灯单独二分。
+            commands.SetRenderTarget(horizontal, BuiltinRenderTextureType.None);
             commands.SetGlobalTexture("_ShopCornerRaw0", raw[0]);
             commands.SetGlobalTexture("_ShopCornerRaw1", raw[1]);
             commands.SetGlobalTexture("_ShopCornerUnionAndId", raw[2]);
@@ -646,18 +653,17 @@ namespace ShiftGame
             commands.SetGlobalFloat("_ShopCornerCutoff", cutoff);
             commands.SetGlobalVector("_ShopCornerKernel", new Vector4(
                 Mathf.Clamp(relativeSigma, 0.15f, 0.65f), absoluteDepthTolerance, relativeDepthTolerance, 0f));
-            commands.SetRenderTarget(horizontal, BuiltinRenderTextureType.None);
             commands.DrawProcedural(Matrix4x4.identity, filter, horizontalPass, MeshTopology.Triangles, 3);
+            commands.SetRenderTarget(rounded, BuiltinRenderTextureType.None);
             commands.SetGlobalTexture("_ShopCornerHorizontal0", horizontal[0]);
             commands.SetGlobalTexture("_ShopCornerHorizontal1", horizontal[1]);
-            commands.SetRenderTarget(rounded, BuiltinRenderTextureType.None);
             commands.DrawProcedural(Matrix4x4.identity, filter, verticalPass, MeshTopology.Triangles, 3);
+            commands.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
             commands.SetGlobalTexture("_ShopRoundedLightMask0", rounded[0]);
             commands.SetGlobalTexture("_ShopRoundedLightMask1", rounded[1]);
             commands.SetGlobalTexture("_ShopRoundedLightUnion", rounded[2]);
             commands.SetGlobalTexture("_ShopRoundedLightGuide", raw[3]);
             commands.SetGlobalFloat(EnabledId, 1f);
-            commands.SetRenderTarget(BuiltinRenderTextureType.CameraTarget);
         }
 
         private bool EnsureTargets(int width, int height)

@@ -3,7 +3,37 @@ guid: f24fc2ffb210645428075a6d3269fb67
 ModelImporter:
   serializedVersion: 24300
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 09 - Default
+    second: {fileID: 2100000, guid: e925f0e9f6a5dca4e8f9d0ccc230657a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: boli
+    second: {fileID: 2100000, guid: 523c1a1c637c99a4e9c5156015446d26, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: deng
+    second: {fileID: 2100000, guid: c48836956b856de4d9b34942675f95c6, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ganzi
+    second: {fileID: 2100000, guid: a014593ac46aa154d90294e7ff6e0f52, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: panzi
+    second: {fileID: 2100000, guid: 34f4075d7ec996247887f59ee9ac1acb, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: qiu
+    second: {fileID: 2100000, guid: afc265d42e4aae443ba0e007f8f169f7, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0

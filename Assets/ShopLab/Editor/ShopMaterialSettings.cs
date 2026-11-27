@@ -644,7 +644,8 @@ namespace ShiftGame.ShopLab
 
         public static ShopMaterialSection GetSection(string propertyName) => propertyName switch
         {
-            "_BaseColor" or "_BaseMap" or "_TintBaseMap" or "_EmissionMap" or "_EmissionColor"
+            "_BaseColor" or "_BaseMap" or "_TintBaseMap" or "_UseTintMask" or "_TintMask"
+                or "_AlphaClip" or "_Cutoff" or "_Cull" or "_EmissionMap" or "_EmissionColor"
                 => ShopMaterialSection.Surface,
             "_LightColorGain" or "_LightIntensityWeight" or "_IntensityThreshold" or "_DirectionThreshold"
                 => ShopMaterialSection.Lighting,

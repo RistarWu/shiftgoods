@@ -6,6 +6,11 @@ Shader "Shift/商店二分"
         [MainTexture] _BaseMap ("固有色贴图", 2D) = "white" {}
         [ToggleUI] _HasBaseMap ("使用固有色贴图（仅单文件模式手动设置）", Float) = 0
         [ToggleUI] _TintBaseMap ("固有色为贴图乘色", Float) = 0
+        [ToggleUI] _UseTintMask ("使用着色遮罩", Float) = 0
+        _TintMask ("着色遮罩", 2D) = "white" {}
+        [ToggleUI] _AlphaClip ("透明度裁剪", Float) = 0
+        _Cutoff ("裁剪阈值", Range(0, 1)) = 0.5
+        [Enum(UnityEngine.Rendering.CullMode)] _Cull ("面剔除", Float) = 2
         _EmissionMap ("自发光贴图", 2D) = "white" {}
         [HDR] _EmissionColor ("自发光颜色", Color) = (0, 0, 0, 0)
         _ShadowTint ("阴影乘色", Color) = (0.25, 0.25, 0.25, 1)
@@ -29,7 +34,7 @@ Shader "Shift/商店二分"
     SubShader
     {
         Tags { "RenderType"="Opaque" "Queue"="Geometry" "DisableBatching"="True" }
-        Cull Back
+        Cull [_Cull]
         ZWrite On
         ZTest LEqual
 
@@ -71,6 +76,7 @@ Shader "Shift/商店二分"
         {
             float3 positionOS;
             float3 normalOS;
+            float2 uv;
         };
 
         struct ShopVarying
@@ -198,6 +204,7 @@ Shader "Shift/商店二分"
             surfacePoint.normalOS = patch[0].normalOS * barycentric.x
                            + patch[1].normalOS * barycentric.y
                            + patch[2].normalOS * barycentric.z;
+            surfacePoint.uv = patch[0].uv * barycentric.x + patch[1].uv * barycentric.y + patch[2].uv * barycentric.z;
             return surfacePoint;
         }
 
@@ -213,7 +220,7 @@ Shader "Shift/商店二分"
             output.normalWS = UnityObjectToWorldNormal(surfacePoint.normalOS);
             output.eyeDepth = -mul(UNITY_MATRIX_V, float4(output.positionWS, 1.0)).z;
             // 沿原三角形插值 UV0，细分只改变几何形状，仍保留原有的纹理接缝和缩放偏移。
-            output.uv = patch[0].uv * barycentric.x + patch[1].uv * barycentric.y + patch[2].uv * barycentric.z;
+            output.uv = surfacePoint.uv;
             return output;
         }
 
@@ -230,18 +237,58 @@ Shader "Shift/商店二分"
         float _DirectionThreshold;
         float _FadeDistance;
         float _ShopLightingManaged;
+        float _ShopShadowFill;
 
         sampler2D _BaseMap;
         float _HasBaseMap;
         float _TintBaseMap;
+        sampler2D _TintMask;
+        float4 _TintMask_ST;
+        float _UseTintMask;
+        float _AlphaClip;
+        float _Cutoff;
+
+        float4 ShopSampleBaseMap(float2 uv)
+        {
+            float4 sampleColor = 1.0;
+            [branch]
+            if (_HasBaseMap > 0.5)
+                sampleColor = tex2D(_BaseMap, TRANSFORM_TEX(uv, _BaseMap));
+            return sampleColor;
+        }
+
+        void ShopClipSampleAlpha(float alpha)
+        {
+            clip(alpha * _BaseColor.a - _Cutoff);
+        }
+
+        void ShopClipAlpha(float2 uv)
+        {
+            [branch]
+            if (_AlphaClip > 0.5)
+                ShopClipSampleAlpha(ShopSampleBaseMap(uv).a);
+        }
 
         float3 ShopBaseColor(float2 uv)
         {
+            float4 sampleColor = ShopSampleBaseMap(uv);
+            [branch]
+            if (_AlphaClip > 0.5)
+                ShopClipSampleAlpha(sampleColor.a);
+
+            float3 surfaceColor = _BaseColor.rgb;
+            [branch]
+            if (_UseTintMask > 0.5)
+            {
+                float3 mask = tex2D(_TintMask, TRANSFORM_TEX(uv, _TintMask)).rgb;
+                surfaceColor = lerp(sampleColor.rgb, _BaseColor.rgb, _TintBaseMap * mask);
+            }
             // 由材质实际绑定的贴图决定来源；白色、黑色和 1×1 贴图都是有效固有色。
-            if (_HasBaseMap > 0.5)
-                return tex2D(_BaseMap, TRANSFORM_TEX(uv, _BaseMap)).rgb
-                    * lerp(1.0, _BaseColor.rgb, _TintBaseMap);
-            return _BaseColor.rgb;
+            else if (_HasBaseMap > 0.5)
+            {
+                surfaceColor = sampleColor.rgb * lerp(1.0, _BaseColor.rgb, _TintBaseMap);
+            }
+            return surfaceColor;
         }
 
         float3 ShopDarkColor(float3 baseColor)
@@ -678,13 +725,15 @@ Shader "Shift/商店二分"
                     return float4(lerp(dark, lamp, coverage * fade) + emission, 1.0);
                 }
 
+                dark = lerp(dark, baseColor, saturate(_ShopShadowFill));
                 float4 lights0, lights1;
                 float4 covered;
                 float4 incidents0, incidents1;
                 int3 pixel = int3(int2(input.positionCS.xy), 0);
                 float depthTolerance = max(0.0001, 0.002 * fwidth(input.eyeDepth) + 0.00001 * input.eyeDepth);
                 float guideDepth = 0.0;
-                if (_ShopRoundedLightMaskEnabled > 0.5)
+                // 深度附件可能先于颜色附件写入。没有接收面编号时用逐灯计算。
+                if (_ShopRoundedLightMaskEnabled > 0.5 && _ShopCornerUnionAndId.Load(pixel).y > 0.0)
                     guideDepth = _ShopRoundedLightGuide.Load(pixel);
 
                 bool useRoundedMask = guideDepth > 0.0 && abs(guideDepth - input.eyeDepth) <= depthTolerance;
@@ -833,6 +882,7 @@ Shader "Shift/商店二分"
 
             ShopMaskOutput ShopMaskFragment(ShopVarying input)
             {
+                ShopClipAlpha(input.uv);
                 ShopMaskOutput output;
                 float4 covered;
                 float4 incidents0, incidents1;
@@ -869,6 +919,7 @@ Shader "Shift/商店二分"
             {
                 float4 positionCS : SV_POSITION;
                 float depth : TEXCOORD0;
+                float2 uv : TEXCOORD1;
             };
 
             [domain("tri")]
@@ -880,11 +931,13 @@ Shader "Shift/商店二分"
                 ShopShadowVarying output;
                 output.positionCS = mul(_ShopShadowVP, worldPosition);
                 output.depth = dot(worldPosition, _ShopShadowDepthParams);
+                output.uv = surfacePoint.uv;
                 return output;
             }
 
             float4 ShopShadowFragment(ShopShadowVarying input) : SV_Target
             {
+                ShopClipAlpha(input.uv);
                 return float4(input.depth, 0, 0, 1);
             }
             ENDCG
@@ -920,6 +973,7 @@ Shader "Shift/商店二分"
 
             ShopOutlineOutput ShopOutlineFragment(ShopVarying input)
             {
+                ShopClipAlpha(input.uv);
                 ShopOutlineOutput output;
                 float feather = (1.0 + round(saturate(_OutlineFeatherScale * 0.5) * 254.0)) / 255.0;
                 float enabled = _OutlineEnabled > 0.5 && _OutlineWidthScale > 0.0 ? feather : 0.0;
@@ -951,6 +1005,7 @@ Shader "Shift/商店二分"
             struct ShopBuiltInShadowVarying
             {
                 V2F_SHADOW_CASTER;
+                float2 uv : TEXCOORD1;
             };
 
             [domain("tri")]
@@ -960,6 +1015,7 @@ Shader "Shift/商店二分"
                 ShopSurfacePoint surfacePoint = ShopEvaluate(patch, barycentric);
                 ShopBuiltInShadowVarying output;
                 float4 positionOS = float4(surfacePoint.positionOS, 1.0);
+                output.uv = surfacePoint.uv;
             #if defined(SHADOWS_CUBE) && !defined(SHADOWS_CUBE_IN_DEPTH_TEX)
                 output.vec = mul(unity_ObjectToWorld, positionOS).xyz - _LightPositionRange.xyz;
                 output.pos = UnityObjectToClipPos(positionOS);
@@ -971,6 +1027,7 @@ Shader "Shift/商店二分"
 
             float4 ShopBuiltInShadowFragment(ShopBuiltInShadowVarying input) : SV_Target
             {
+                ShopClipAlpha(input.uv);
                 SHADOW_CASTER_FRAGMENT(input)
             }
             ENDCG

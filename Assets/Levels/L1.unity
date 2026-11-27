@@ -1405,6 +1405,7 @@ MonoBehaviour:
   shadowResolution: 512
   softShadowSampleWidth: 3
   lightIntensityScale: 3
+  shadowFill: 0.24
   lights: []
   extraCasters: []
   renderCamera: {fileID: 19301137}

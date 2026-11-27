@@ -21,12 +21,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PufferFish
-  m_Shader: {fileID: -6465566751694194690, guid: ad1b0a5ff57bd6046981f89e0d945e0a,
-    type: 3}
+  m_Shader: {fileID: 4800000, guid: c7e575ff432581f46a27abf11fd40dae, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _OUTLINEENABLED_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -42,7 +42,19 @@ Material:
         m_Texture: {fileID: 2800000, guid: 145ce50b25c1d0349a8435d7ef2fd077, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _BaseMap:
+        m_Texture: {fileID: 2800000, guid: 145ce50b25c1d0349a8435d7ef2fd077, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Emission:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _EmissionMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _MainTex:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -56,6 +68,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     - _ORM:
         m_Texture: {fileID: 2800000, guid: 775850d2a8fc7594fb3c32b26fa197f8, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TintMask:
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -72,15 +88,37 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
     - _BUILTIN_QueueControl: 0
     - _BUILTIN_QueueOffset: 0
+    - _Cull: 0
+    - _Cutoff: 0.5
+    - _DirectionThreshold: 0.5
     - _EmissiveStrength: 0
+    - _FadeDistance: 100
+    - _HasBaseMap: 1
+    - _IntensityThreshold: 0.5
+    - _LightColorGain: 1
+    - _LightIntensityWeight: 0
+    - _OutlineEnabled: 1
+    - _OutlineFeatherScale: 1
+    - _OutlineWidthScale: 1
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _ShadowTintDepth: 1
+    - _ShopObjectId: 0
+    - _Smoothness: 0.5
+    - _TessEdgePixels: 0
+    - _TessFactor: 1
+    - _TintBaseMap: 1
+    - _UseTintMask: 0
     - _Use_Emission: 0
     - _Use_Mask: 0
     m_Colors:
-    - _EmissionColor: {r: 1, g: 1, b: 1, a: 0}
+    - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
+    - _EmissionColor: {r: 0, g: 0, b: 0, a: 0}
+    - _OutlineColor: {r: 0.04, g: 0.04, b: 0.04, a: 1}
+    - _ShadowTint: {r: 0.25, g: 0.25, b: 0.25, a: 1}
     - _Tint: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
