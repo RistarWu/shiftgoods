@@ -1,0 +1,2266 @@
+{
+  "schema": 1,
+  "roles": {
+    "ba052f4764f55fe98c52bc80d29e7ee0": "Shift小偷",
+    "95d40713e43755fea987f5c73a6336d9": "Shift钟表",
+    "e517103702405abf96ef91042dc98751": "飞碟"
+  },
+  "assets": {
+    "Assets/Charactor/Shift小偷/Model/Shift小偷.fbx": {
+      "path": "Assets/Charactor/Shift小偷/Model/Shift小偷.fbx",
+      "kind": "model",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 30,
+      "sha256": "be0cae805b57f4265f022f5b1677c78a38d60d031dd186fc3064fb840c90be79",
+      "fbxSettings": [],
+      "clips": [],
+      "roleId": "ba052f4764f55fe98c52bc80d29e7ee0",
+      "character": "Shift小偷",
+      "revision": "20261126T131124-e6953330",
+      "assetId": "1915e932338a4a42b2a76d9036c2ec61"
+    },
+    "Assets/Charactor/Shift小偷/Animations/Idle.fbx": {
+      "path": "Assets/Charactor/Shift小偷/Animations/Idle.fbx",
+      "kind": "animation",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "519152cde61819f53b71a1f2ebc66f6e0c3277715545c7aa9d8951ccfefc56f7",
+      "fbxSettings": [
+        {
+          "name": "materialName",
+          "json": "\"BasedOnTextureName\""
+        },
+        {
+          "name": "materialSearch",
+          "json": "\"RecursiveUp\""
+        },
+        {
+          "name": "materialLocation",
+          "json": "\"InPrefab\""
+        },
+        {
+          "name": "globalScale",
+          "json": "1.0"
+        },
+        {
+          "name": "importVisibility",
+          "json": "true"
+        },
+        {
+          "name": "useFileUnits",
+          "json": "true"
+        },
+        {
+          "name": "useFileScale",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapes",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapeDeformPercent",
+          "json": "true"
+        },
+        {
+          "name": "importCameras",
+          "json": "true"
+        },
+        {
+          "name": "importLights",
+          "json": "true"
+        },
+        {
+          "name": "addCollider",
+          "json": "false"
+        },
+        {
+          "name": "normalSmoothingAngle",
+          "json": "60.0"
+        },
+        {
+          "name": "swapUVChannels",
+          "json": "false"
+        },
+        {
+          "name": "weldVertices",
+          "json": "true"
+        },
+        {
+          "name": "bakeAxisConversion",
+          "json": "false"
+        },
+        {
+          "name": "optimizeBones",
+          "json": "true"
+        },
+        {
+          "name": "keepQuads",
+          "json": "false"
+        },
+        {
+          "name": "indexFormat",
+          "json": "\"Auto\""
+        },
+        {
+          "name": "preserveHierarchy",
+          "json": "false"
+        },
+        {
+          "name": "generateSecondaryUV",
+          "json": "false"
+        },
+        {
+          "name": "secondaryUVAngleDistortion",
+          "json": "8.0"
+        },
+        {
+          "name": "secondaryUVAreaDistortion",
+          "json": "15.0"
+        },
+        {
+          "name": "secondaryUVHardAngle",
+          "json": "88.0"
+        },
+        {
+          "name": "secondaryUVMarginMethod",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "secondaryUVPackMargin",
+          "json": "4.0"
+        },
+        {
+          "name": "secondaryUVMinLightmapResolution",
+          "json": "40.0"
+        },
+        {
+          "name": "secondaryUVMinObjectScale",
+          "json": "1.0"
+        },
+        {
+          "name": "generateAnimations",
+          "json": "\"GenerateAnimations\""
+        },
+        {
+          "name": "isReadable",
+          "json": "false"
+        },
+        {
+          "name": "meshOptimizationFlags",
+          "json": "\"Everything\""
+        },
+        {
+          "name": "optimizeMeshPolygons",
+          "json": "true"
+        },
+        {
+          "name": "optimizeMeshVertices",
+          "json": "true"
+        },
+        {
+          "name": "skinWeights",
+          "json": "\"Standard\""
+        },
+        {
+          "name": "maxBonesPerVertex",
+          "json": "4"
+        },
+        {
+          "name": "minBoneWeight",
+          "json": "0.001"
+        },
+        {
+          "name": "importNormals",
+          "json": "\"Import\""
+        },
+        {
+          "name": "normalSmoothingSource",
+          "json": "\"PreferSmoothingGroups\""
+        },
+        {
+          "name": "importBlendShapeNormals",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "normalCalculationMode",
+          "json": "\"AreaAndAngleWeighted\""
+        },
+        {
+          "name": "importTangents",
+          "json": "\"CalculateMikk\""
+        },
+        {
+          "name": "bakeIK",
+          "json": "false"
+        },
+        {
+          "name": "resampleCurves",
+          "json": "true"
+        },
+        {
+          "name": "removeConstantScaleCurves",
+          "json": "false"
+        },
+        {
+          "name": "strictVertexDataChecks",
+          "json": "false"
+        },
+        {
+          "name": "meshCompression",
+          "json": "\"Off\""
+        },
+        {
+          "name": "importAnimation",
+          "json": "true"
+        },
+        {
+          "name": "optimizeGameObjects",
+          "json": "false"
+        },
+        {
+          "name": "extraExposedTransformPaths",
+          "json": "[]"
+        },
+        {
+          "name": "extraUserProperties",
+          "json": "[]"
+        },
+        {
+          "name": "animationCompression",
+          "json": "\"KeyframeReduction\""
+        },
+        {
+          "name": "importAnimatedCustomProperties",
+          "json": "false"
+        },
+        {
+          "name": "importConstraints",
+          "json": "false"
+        },
+        {
+          "name": "aCLCompressionLevel",
+          "json": "\"Automatic\""
+        },
+        {
+          "name": "aCLCurvePrecision",
+          "json": "false"
+        },
+        {
+          "name": "animationRotationError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationPositionError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationScaleError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationWrapMode",
+          "json": "\"Default\""
+        },
+        {
+          "name": "animationType",
+          "json": "\"Generic\""
+        },
+        {
+          "name": "humanoidOversampling",
+          "json": "\"X1\""
+        },
+        {
+          "name": "motionNodeName",
+          "json": "\"\""
+        },
+        {
+          "name": "avatarSetup",
+          "json": "\"NoAvatar\""
+        },
+        {
+          "name": "sourceAvatar",
+          "json": "\"\""
+        },
+        {
+          "name": "humanDescription",
+          "json": "{\"human\": [], \"skeleton\": [], \"upperArmTwist\": 0.5, \"lowerArmTwist\": 0.5, \"upperLegTwist\": 0.5, \"lowerLegTwist\": 0.5, \"armStretch\": 0.05, \"legStretch\": 0.05, \"feetSpacing\": 0.0, \"hasTranslationDoF\": false}"
+        },
+        {
+          "name": "useSRGBMaterialColor",
+          "json": "true"
+        },
+        {
+          "name": "sortHierarchyByName",
+          "json": "true"
+        },
+        {
+          "name": "materialImportMode",
+          "json": "\"ImportViaMaterialDescription\""
+        },
+        {
+          "name": "autoGenerateAvatarMappingIfUnspecified",
+          "json": "true"
+        },
+        {
+          "name": "isVirtualGeometry",
+          "json": "false"
+        },
+        {
+          "name": "materialRemaps",
+          "json": "[]"
+        },
+        {
+          "name": "extensions",
+          "json": "{}"
+        }
+      ],
+      "clips": [
+        {
+          "id": "67fea473ea2b40dd9b7b6f566d453696",
+          "name": "Idle",
+          "firstFrame": 0.0,
+          "lastFrame": 120.0,
+          "takeName": "",
+          "settings": [
+            {
+              "name": "loopTime",
+              "json": "true"
+            },
+            {
+              "name": "loopPose",
+              "json": "false"
+            },
+            {
+              "name": "mirror",
+              "json": "false"
+            },
+            {
+              "name": "cycleOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "lockRootRotation",
+              "json": "false"
+            },
+            {
+              "name": "lockRootHeightY",
+              "json": "false"
+            },
+            {
+              "name": "lockRootPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "wrapMode",
+              "json": "\"Default\""
+            },
+            {
+              "name": "loop",
+              "json": "false"
+            },
+            {
+              "name": "rotationOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "heightOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "additiveType",
+              "json": "0"
+            },
+            {
+              "name": "basePoseType",
+              "json": "0"
+            },
+            {
+              "name": "additiveSelectedAnimation",
+              "json": "\"\""
+            },
+            {
+              "name": "additiveSelectedAnimationFrameIndex",
+              "json": "0"
+            },
+            {
+              "name": "lockToRoot",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalOrientation",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionY",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "heightFromFeet",
+              "json": "false"
+            },
+            {
+              "name": "maskType",
+              "json": "\"None\""
+            },
+            {
+              "name": "maskSource",
+              "json": "\"\""
+            },
+            {
+              "name": "events",
+              "json": "[]"
+            },
+            {
+              "name": "intervals",
+              "json": "[]"
+            },
+            {
+              "name": "curves",
+              "json": "[]"
+            },
+            {
+              "name": "additiveReferencePoseFrame",
+              "json": "0.0"
+            },
+            {
+              "name": "hasAdditiveReferencePose",
+              "json": "false"
+            },
+            {
+              "name": "transformMask",
+              "json": "[]"
+            },
+            {
+              "name": "extensions",
+              "json": "{}"
+            }
+          ]
+        }
+      ],
+      "roleId": "ba052f4764f55fe98c52bc80d29e7ee0",
+      "character": "Shift小偷",
+      "revision": "20261123T160016-614fde84",
+      "assetId": "e9ea55fb82fe47f8993a3500d4675022"
+    },
+    "Assets/Charactor/Shift小偷/Animations/Move.fbx": {
+      "path": "Assets/Charactor/Shift小偷/Animations/Move.fbx",
+      "kind": "animation",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "e24c8036b1a533a83725cc1cf72fd3155f753686a100645374e74d8c33603303",
+      "fbxSettings": [
+        {
+          "name": "materialName",
+          "json": "\"BasedOnTextureName\""
+        },
+        {
+          "name": "materialSearch",
+          "json": "\"RecursiveUp\""
+        },
+        {
+          "name": "materialLocation",
+          "json": "\"InPrefab\""
+        },
+        {
+          "name": "globalScale",
+          "json": "1.0"
+        },
+        {
+          "name": "importVisibility",
+          "json": "true"
+        },
+        {
+          "name": "useFileUnits",
+          "json": "true"
+        },
+        {
+          "name": "useFileScale",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapes",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapeDeformPercent",
+          "json": "true"
+        },
+        {
+          "name": "importCameras",
+          "json": "true"
+        },
+        {
+          "name": "importLights",
+          "json": "true"
+        },
+        {
+          "name": "addCollider",
+          "json": "false"
+        },
+        {
+          "name": "normalSmoothingAngle",
+          "json": "60.0"
+        },
+        {
+          "name": "swapUVChannels",
+          "json": "false"
+        },
+        {
+          "name": "weldVertices",
+          "json": "true"
+        },
+        {
+          "name": "bakeAxisConversion",
+          "json": "false"
+        },
+        {
+          "name": "optimizeBones",
+          "json": "true"
+        },
+        {
+          "name": "keepQuads",
+          "json": "false"
+        },
+        {
+          "name": "indexFormat",
+          "json": "\"Auto\""
+        },
+        {
+          "name": "preserveHierarchy",
+          "json": "false"
+        },
+        {
+          "name": "generateSecondaryUV",
+          "json": "false"
+        },
+        {
+          "name": "secondaryUVAngleDistortion",
+          "json": "8.0"
+        },
+        {
+          "name": "secondaryUVAreaDistortion",
+          "json": "15.0"
+        },
+        {
+          "name": "secondaryUVHardAngle",
+          "json": "88.0"
+        },
+        {
+          "name": "secondaryUVMarginMethod",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "secondaryUVPackMargin",
+          "json": "4.0"
+        },
+        {
+          "name": "secondaryUVMinLightmapResolution",
+          "json": "40.0"
+        },
+        {
+          "name": "secondaryUVMinObjectScale",
+          "json": "1.0"
+        },
+        {
+          "name": "generateAnimations",
+          "json": "\"GenerateAnimations\""
+        },
+        {
+          "name": "isReadable",
+          "json": "false"
+        },
+        {
+          "name": "meshOptimizationFlags",
+          "json": "\"Everything\""
+        },
+        {
+          "name": "optimizeMeshPolygons",
+          "json": "true"
+        },
+        {
+          "name": "optimizeMeshVertices",
+          "json": "true"
+        },
+        {
+          "name": "skinWeights",
+          "json": "\"Standard\""
+        },
+        {
+          "name": "maxBonesPerVertex",
+          "json": "4"
+        },
+        {
+          "name": "minBoneWeight",
+          "json": "0.001"
+        },
+        {
+          "name": "importNormals",
+          "json": "\"Import\""
+        },
+        {
+          "name": "normalSmoothingSource",
+          "json": "\"PreferSmoothingGroups\""
+        },
+        {
+          "name": "importBlendShapeNormals",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "normalCalculationMode",
+          "json": "\"AreaAndAngleWeighted\""
+        },
+        {
+          "name": "importTangents",
+          "json": "\"CalculateMikk\""
+        },
+        {
+          "name": "bakeIK",
+          "json": "false"
+        },
+        {
+          "name": "resampleCurves",
+          "json": "true"
+        },
+        {
+          "name": "removeConstantScaleCurves",
+          "json": "false"
+        },
+        {
+          "name": "strictVertexDataChecks",
+          "json": "false"
+        },
+        {
+          "name": "meshCompression",
+          "json": "\"Off\""
+        },
+        {
+          "name": "importAnimation",
+          "json": "true"
+        },
+        {
+          "name": "optimizeGameObjects",
+          "json": "false"
+        },
+        {
+          "name": "extraExposedTransformPaths",
+          "json": "[]"
+        },
+        {
+          "name": "extraUserProperties",
+          "json": "[]"
+        },
+        {
+          "name": "animationCompression",
+          "json": "\"KeyframeReduction\""
+        },
+        {
+          "name": "importAnimatedCustomProperties",
+          "json": "false"
+        },
+        {
+          "name": "importConstraints",
+          "json": "false"
+        },
+        {
+          "name": "aCLCompressionLevel",
+          "json": "\"Automatic\""
+        },
+        {
+          "name": "aCLCurvePrecision",
+          "json": "false"
+        },
+        {
+          "name": "animationRotationError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationPositionError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationScaleError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationWrapMode",
+          "json": "\"Default\""
+        },
+        {
+          "name": "animationType",
+          "json": "\"Generic\""
+        },
+        {
+          "name": "humanoidOversampling",
+          "json": "\"X1\""
+        },
+        {
+          "name": "motionNodeName",
+          "json": "\"\""
+        },
+        {
+          "name": "avatarSetup",
+          "json": "\"NoAvatar\""
+        },
+        {
+          "name": "sourceAvatar",
+          "json": "\"\""
+        },
+        {
+          "name": "humanDescription",
+          "json": "{\"human\": [], \"skeleton\": [], \"upperArmTwist\": 0.5, \"lowerArmTwist\": 0.5, \"upperLegTwist\": 0.5, \"lowerLegTwist\": 0.5, \"armStretch\": 0.05, \"legStretch\": 0.05, \"feetSpacing\": 0.0, \"hasTranslationDoF\": false}"
+        },
+        {
+          "name": "useSRGBMaterialColor",
+          "json": "true"
+        },
+        {
+          "name": "sortHierarchyByName",
+          "json": "true"
+        },
+        {
+          "name": "materialImportMode",
+          "json": "\"ImportViaMaterialDescription\""
+        },
+        {
+          "name": "autoGenerateAvatarMappingIfUnspecified",
+          "json": "true"
+        },
+        {
+          "name": "isVirtualGeometry",
+          "json": "false"
+        },
+        {
+          "name": "materialRemaps",
+          "json": "[]"
+        },
+        {
+          "name": "extensions",
+          "json": "{}"
+        }
+      ],
+      "clips": [
+        {
+          "id": "21e97ef2f49b4a1ea1ecd92a12902827",
+          "name": "Move",
+          "firstFrame": 0.0,
+          "lastFrame": 60.0,
+          "takeName": "",
+          "settings": [
+            {
+              "name": "loopTime",
+              "json": "true"
+            },
+            {
+              "name": "loopPose",
+              "json": "false"
+            },
+            {
+              "name": "mirror",
+              "json": "false"
+            },
+            {
+              "name": "cycleOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "lockRootRotation",
+              "json": "false"
+            },
+            {
+              "name": "lockRootHeightY",
+              "json": "false"
+            },
+            {
+              "name": "lockRootPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "wrapMode",
+              "json": "\"Default\""
+            },
+            {
+              "name": "loop",
+              "json": "false"
+            },
+            {
+              "name": "rotationOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "heightOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "additiveType",
+              "json": "0"
+            },
+            {
+              "name": "basePoseType",
+              "json": "0"
+            },
+            {
+              "name": "additiveSelectedAnimation",
+              "json": "\"\""
+            },
+            {
+              "name": "additiveSelectedAnimationFrameIndex",
+              "json": "0"
+            },
+            {
+              "name": "lockToRoot",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalOrientation",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionY",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "heightFromFeet",
+              "json": "false"
+            },
+            {
+              "name": "maskType",
+              "json": "\"None\""
+            },
+            {
+              "name": "maskSource",
+              "json": "\"\""
+            },
+            {
+              "name": "events",
+              "json": "[]"
+            },
+            {
+              "name": "intervals",
+              "json": "[]"
+            },
+            {
+              "name": "curves",
+              "json": "[]"
+            },
+            {
+              "name": "additiveReferencePoseFrame",
+              "json": "0.0"
+            },
+            {
+              "name": "hasAdditiveReferencePose",
+              "json": "false"
+            },
+            {
+              "name": "transformMask",
+              "json": "[]"
+            },
+            {
+              "name": "extensions",
+              "json": "{}"
+            }
+          ]
+        }
+      ],
+      "roleId": "ba052f4764f55fe98c52bc80d29e7ee0",
+      "character": "Shift小偷",
+      "revision": "20261123T164329-a72c6881",
+      "assetId": "3b7742000de148a89901304df858c371"
+    },
+    "Assets/Charactor/Shift小偷/TPose/T_Pose.fbx": {
+      "path": "Assets/Charactor/Shift小偷/TPose/T_Pose.fbx",
+      "kind": "tpose",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 30,
+      "sha256": "e8e7ce4e5899a0b900e29ccf2e9fcf63b49bf961cf7b6dd9bd4ba27a3a9cbc30",
+      "fbxSettings": [],
+      "clips": [
+        {
+          "id": "1915e932338a4a42b2a76d9036c2ec61",
+          "name": "T_Pose",
+          "firstFrame": 0,
+          "lastFrame": 1,
+          "takeName": "",
+          "settings": []
+        }
+      ],
+      "roleId": "ba052f4764f55fe98c52bc80d29e7ee0",
+      "character": "Shift小偷",
+      "revision": "20261126T131124-e6953330",
+      "assetId": "1915e932338a4a42b2a76d9036c2ec61"
+    },
+    "Assets/Charactor/Shift钟表/Model/Shift钟表.fbx": {
+      "path": "Assets/Charactor/Shift钟表/Model/Shift钟表.fbx",
+      "kind": "model",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "6a092dbf5ec40c7337f73dc05a4443a55905a289f1c51f6984157377e2ae55fb",
+      "fbxSettings": [],
+      "clips": [],
+      "roleId": "95d40713e43755fea987f5c73a6336d9",
+      "character": "Shift钟表",
+      "revision": "20261123T150347-96b3a3b0",
+      "assetId": "f6148badfbdd4c58bdf1908c8b1badc4"
+    },
+    "Assets/Charactor/Shift钟表/Animations/0.25Tick.fbx": {
+      "path": "Assets/Charactor/Shift钟表/Animations/0.25Tick.fbx",
+      "kind": "animation",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "545c9c97cf8e28d636ee135f62d47159d45c84bff5191f53f3cf274237536896",
+      "fbxSettings": [
+        {
+          "name": "materialName",
+          "json": "\"BasedOnTextureName\""
+        },
+        {
+          "name": "materialSearch",
+          "json": "\"RecursiveUp\""
+        },
+        {
+          "name": "materialLocation",
+          "json": "\"InPrefab\""
+        },
+        {
+          "name": "globalScale",
+          "json": "1.0"
+        },
+        {
+          "name": "importVisibility",
+          "json": "true"
+        },
+        {
+          "name": "useFileUnits",
+          "json": "true"
+        },
+        {
+          "name": "useFileScale",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapes",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapeDeformPercent",
+          "json": "true"
+        },
+        {
+          "name": "importCameras",
+          "json": "true"
+        },
+        {
+          "name": "importLights",
+          "json": "true"
+        },
+        {
+          "name": "addCollider",
+          "json": "false"
+        },
+        {
+          "name": "normalSmoothingAngle",
+          "json": "60.0"
+        },
+        {
+          "name": "swapUVChannels",
+          "json": "false"
+        },
+        {
+          "name": "weldVertices",
+          "json": "true"
+        },
+        {
+          "name": "bakeAxisConversion",
+          "json": "false"
+        },
+        {
+          "name": "optimizeBones",
+          "json": "true"
+        },
+        {
+          "name": "keepQuads",
+          "json": "false"
+        },
+        {
+          "name": "indexFormat",
+          "json": "\"Auto\""
+        },
+        {
+          "name": "preserveHierarchy",
+          "json": "false"
+        },
+        {
+          "name": "generateSecondaryUV",
+          "json": "false"
+        },
+        {
+          "name": "secondaryUVAngleDistortion",
+          "json": "8.0"
+        },
+        {
+          "name": "secondaryUVAreaDistortion",
+          "json": "15.0"
+        },
+        {
+          "name": "secondaryUVHardAngle",
+          "json": "88.0"
+        },
+        {
+          "name": "secondaryUVMarginMethod",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "secondaryUVPackMargin",
+          "json": "4.0"
+        },
+        {
+          "name": "secondaryUVMinLightmapResolution",
+          "json": "40.0"
+        },
+        {
+          "name": "secondaryUVMinObjectScale",
+          "json": "1.0"
+        },
+        {
+          "name": "generateAnimations",
+          "json": "\"GenerateAnimations\""
+        },
+        {
+          "name": "isReadable",
+          "json": "false"
+        },
+        {
+          "name": "meshOptimizationFlags",
+          "json": "\"Everything\""
+        },
+        {
+          "name": "optimizeMeshPolygons",
+          "json": "true"
+        },
+        {
+          "name": "optimizeMeshVertices",
+          "json": "true"
+        },
+        {
+          "name": "skinWeights",
+          "json": "\"Standard\""
+        },
+        {
+          "name": "maxBonesPerVertex",
+          "json": "4"
+        },
+        {
+          "name": "minBoneWeight",
+          "json": "0.001"
+        },
+        {
+          "name": "importNormals",
+          "json": "\"Import\""
+        },
+        {
+          "name": "normalSmoothingSource",
+          "json": "\"PreferSmoothingGroups\""
+        },
+        {
+          "name": "importBlendShapeNormals",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "normalCalculationMode",
+          "json": "\"AreaAndAngleWeighted\""
+        },
+        {
+          "name": "importTangents",
+          "json": "\"CalculateMikk\""
+        },
+        {
+          "name": "bakeIK",
+          "json": "false"
+        },
+        {
+          "name": "resampleCurves",
+          "json": "true"
+        },
+        {
+          "name": "removeConstantScaleCurves",
+          "json": "false"
+        },
+        {
+          "name": "strictVertexDataChecks",
+          "json": "false"
+        },
+        {
+          "name": "meshCompression",
+          "json": "\"Off\""
+        },
+        {
+          "name": "importAnimation",
+          "json": "true"
+        },
+        {
+          "name": "optimizeGameObjects",
+          "json": "false"
+        },
+        {
+          "name": "extraExposedTransformPaths",
+          "json": "[]"
+        },
+        {
+          "name": "extraUserProperties",
+          "json": "[]"
+        },
+        {
+          "name": "animationCompression",
+          "json": "\"KeyframeReduction\""
+        },
+        {
+          "name": "importAnimatedCustomProperties",
+          "json": "false"
+        },
+        {
+          "name": "importConstraints",
+          "json": "false"
+        },
+        {
+          "name": "aCLCompressionLevel",
+          "json": "\"Automatic\""
+        },
+        {
+          "name": "aCLCurvePrecision",
+          "json": "false"
+        },
+        {
+          "name": "animationRotationError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationPositionError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationScaleError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationWrapMode",
+          "json": "\"Default\""
+        },
+        {
+          "name": "animationType",
+          "json": "\"Generic\""
+        },
+        {
+          "name": "humanoidOversampling",
+          "json": "\"X1\""
+        },
+        {
+          "name": "motionNodeName",
+          "json": "\"\""
+        },
+        {
+          "name": "avatarSetup",
+          "json": "\"NoAvatar\""
+        },
+        {
+          "name": "sourceAvatar",
+          "json": "\"\""
+        },
+        {
+          "name": "humanDescription",
+          "json": "{\"human\": [], \"skeleton\": [], \"upperArmTwist\": 0.5, \"lowerArmTwist\": 0.5, \"upperLegTwist\": 0.5, \"lowerLegTwist\": 0.5, \"armStretch\": 0.05, \"legStretch\": 0.05, \"feetSpacing\": 0.0, \"hasTranslationDoF\": false}"
+        },
+        {
+          "name": "useSRGBMaterialColor",
+          "json": "true"
+        },
+        {
+          "name": "sortHierarchyByName",
+          "json": "true"
+        },
+        {
+          "name": "materialImportMode",
+          "json": "\"ImportViaMaterialDescription\""
+        },
+        {
+          "name": "autoGenerateAvatarMappingIfUnspecified",
+          "json": "true"
+        },
+        {
+          "name": "isVirtualGeometry",
+          "json": "false"
+        },
+        {
+          "name": "materialRemaps",
+          "json": "[]"
+        },
+        {
+          "name": "extensions",
+          "json": "{}"
+        }
+      ],
+      "clips": [
+        {
+          "id": "5ffde623e6d5465a8f6291ecd87fb15b",
+          "name": "0.25Tick",
+          "firstFrame": 0.0,
+          "lastFrame": 30.0,
+          "takeName": "",
+          "settings": [
+            {
+              "name": "loopTime",
+              "json": "true"
+            },
+            {
+              "name": "loopPose",
+              "json": "false"
+            },
+            {
+              "name": "mirror",
+              "json": "false"
+            },
+            {
+              "name": "cycleOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "lockRootRotation",
+              "json": "false"
+            },
+            {
+              "name": "lockRootHeightY",
+              "json": "false"
+            },
+            {
+              "name": "lockRootPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "wrapMode",
+              "json": "\"Default\""
+            },
+            {
+              "name": "loop",
+              "json": "false"
+            },
+            {
+              "name": "rotationOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "heightOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "additiveType",
+              "json": "0"
+            },
+            {
+              "name": "basePoseType",
+              "json": "0"
+            },
+            {
+              "name": "additiveSelectedAnimation",
+              "json": "\"\""
+            },
+            {
+              "name": "additiveSelectedAnimationFrameIndex",
+              "json": "0"
+            },
+            {
+              "name": "lockToRoot",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalOrientation",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionY",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "heightFromFeet",
+              "json": "false"
+            },
+            {
+              "name": "maskType",
+              "json": "\"None\""
+            },
+            {
+              "name": "maskSource",
+              "json": "\"\""
+            },
+            {
+              "name": "events",
+              "json": "[]"
+            },
+            {
+              "name": "intervals",
+              "json": "[]"
+            },
+            {
+              "name": "curves",
+              "json": "[]"
+            },
+            {
+              "name": "additiveReferencePoseFrame",
+              "json": "0.0"
+            },
+            {
+              "name": "hasAdditiveReferencePose",
+              "json": "false"
+            },
+            {
+              "name": "transformMask",
+              "json": "[]"
+            },
+            {
+              "name": "extensions",
+              "json": "{}"
+            }
+          ]
+        }
+      ],
+      "roleId": "95d40713e43755fea987f5c73a6336d9",
+      "character": "Shift钟表",
+      "revision": "20261123T150308-db4fcbe8",
+      "assetId": "b5f7ec078623480b80aa4227f4b1a07e"
+    },
+    "Assets/Charactor/Shift钟表/Animations/1sTick.fbx": {
+      "path": "Assets/Charactor/Shift钟表/Animations/1sTick.fbx",
+      "kind": "animation",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "315444be1ace57813b2990ededbeb254d2bb8c6af5082544ab95c6ad0b22e3be",
+      "fbxSettings": [
+        {
+          "name": "materialName",
+          "json": "\"BasedOnTextureName\""
+        },
+        {
+          "name": "materialSearch",
+          "json": "\"RecursiveUp\""
+        },
+        {
+          "name": "materialLocation",
+          "json": "\"InPrefab\""
+        },
+        {
+          "name": "globalScale",
+          "json": "1.0"
+        },
+        {
+          "name": "importVisibility",
+          "json": "true"
+        },
+        {
+          "name": "useFileUnits",
+          "json": "true"
+        },
+        {
+          "name": "useFileScale",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapes",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapeDeformPercent",
+          "json": "true"
+        },
+        {
+          "name": "importCameras",
+          "json": "true"
+        },
+        {
+          "name": "importLights",
+          "json": "true"
+        },
+        {
+          "name": "addCollider",
+          "json": "false"
+        },
+        {
+          "name": "normalSmoothingAngle",
+          "json": "60.0"
+        },
+        {
+          "name": "swapUVChannels",
+          "json": "false"
+        },
+        {
+          "name": "weldVertices",
+          "json": "true"
+        },
+        {
+          "name": "bakeAxisConversion",
+          "json": "false"
+        },
+        {
+          "name": "optimizeBones",
+          "json": "true"
+        },
+        {
+          "name": "keepQuads",
+          "json": "false"
+        },
+        {
+          "name": "indexFormat",
+          "json": "\"Auto\""
+        },
+        {
+          "name": "preserveHierarchy",
+          "json": "false"
+        },
+        {
+          "name": "generateSecondaryUV",
+          "json": "false"
+        },
+        {
+          "name": "secondaryUVAngleDistortion",
+          "json": "8.0"
+        },
+        {
+          "name": "secondaryUVAreaDistortion",
+          "json": "15.0"
+        },
+        {
+          "name": "secondaryUVHardAngle",
+          "json": "88.0"
+        },
+        {
+          "name": "secondaryUVMarginMethod",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "secondaryUVPackMargin",
+          "json": "4.0"
+        },
+        {
+          "name": "secondaryUVMinLightmapResolution",
+          "json": "40.0"
+        },
+        {
+          "name": "secondaryUVMinObjectScale",
+          "json": "1.0"
+        },
+        {
+          "name": "generateAnimations",
+          "json": "\"GenerateAnimations\""
+        },
+        {
+          "name": "isReadable",
+          "json": "false"
+        },
+        {
+          "name": "meshOptimizationFlags",
+          "json": "\"Everything\""
+        },
+        {
+          "name": "optimizeMeshPolygons",
+          "json": "true"
+        },
+        {
+          "name": "optimizeMeshVertices",
+          "json": "true"
+        },
+        {
+          "name": "skinWeights",
+          "json": "\"Standard\""
+        },
+        {
+          "name": "maxBonesPerVertex",
+          "json": "4"
+        },
+        {
+          "name": "minBoneWeight",
+          "json": "0.001"
+        },
+        {
+          "name": "importNormals",
+          "json": "\"Import\""
+        },
+        {
+          "name": "normalSmoothingSource",
+          "json": "\"PreferSmoothingGroups\""
+        },
+        {
+          "name": "importBlendShapeNormals",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "normalCalculationMode",
+          "json": "\"AreaAndAngleWeighted\""
+        },
+        {
+          "name": "importTangents",
+          "json": "\"CalculateMikk\""
+        },
+        {
+          "name": "bakeIK",
+          "json": "false"
+        },
+        {
+          "name": "resampleCurves",
+          "json": "true"
+        },
+        {
+          "name": "removeConstantScaleCurves",
+          "json": "false"
+        },
+        {
+          "name": "strictVertexDataChecks",
+          "json": "false"
+        },
+        {
+          "name": "meshCompression",
+          "json": "\"Off\""
+        },
+        {
+          "name": "importAnimation",
+          "json": "true"
+        },
+        {
+          "name": "optimizeGameObjects",
+          "json": "false"
+        },
+        {
+          "name": "extraExposedTransformPaths",
+          "json": "[]"
+        },
+        {
+          "name": "extraUserProperties",
+          "json": "[]"
+        },
+        {
+          "name": "animationCompression",
+          "json": "\"KeyframeReduction\""
+        },
+        {
+          "name": "importAnimatedCustomProperties",
+          "json": "false"
+        },
+        {
+          "name": "importConstraints",
+          "json": "false"
+        },
+        {
+          "name": "aCLCompressionLevel",
+          "json": "\"Automatic\""
+        },
+        {
+          "name": "aCLCurvePrecision",
+          "json": "false"
+        },
+        {
+          "name": "animationRotationError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationPositionError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationScaleError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationWrapMode",
+          "json": "\"Default\""
+        },
+        {
+          "name": "animationType",
+          "json": "\"Generic\""
+        },
+        {
+          "name": "humanoidOversampling",
+          "json": "\"X1\""
+        },
+        {
+          "name": "motionNodeName",
+          "json": "\"\""
+        },
+        {
+          "name": "avatarSetup",
+          "json": "\"NoAvatar\""
+        },
+        {
+          "name": "sourceAvatar",
+          "json": "\"\""
+        },
+        {
+          "name": "humanDescription",
+          "json": "{\"human\": [], \"skeleton\": [], \"upperArmTwist\": 0.5, \"lowerArmTwist\": 0.5, \"upperLegTwist\": 0.5, \"lowerLegTwist\": 0.5, \"armStretch\": 0.05, \"legStretch\": 0.05, \"feetSpacing\": 0.0, \"hasTranslationDoF\": false}"
+        },
+        {
+          "name": "useSRGBMaterialColor",
+          "json": "true"
+        },
+        {
+          "name": "sortHierarchyByName",
+          "json": "true"
+        },
+        {
+          "name": "materialImportMode",
+          "json": "\"ImportViaMaterialDescription\""
+        },
+        {
+          "name": "autoGenerateAvatarMappingIfUnspecified",
+          "json": "true"
+        },
+        {
+          "name": "isVirtualGeometry",
+          "json": "false"
+        },
+        {
+          "name": "materialRemaps",
+          "json": "[]"
+        },
+        {
+          "name": "extensions",
+          "json": "{}"
+        }
+      ],
+      "clips": [
+        {
+          "id": "b66d859d7bd945dc894d2deed4e6cc24",
+          "name": "1sTick",
+          "firstFrame": 0.0,
+          "lastFrame": 120.0,
+          "takeName": "",
+          "settings": [
+            {
+              "name": "loopTime",
+              "json": "true"
+            },
+            {
+              "name": "loopPose",
+              "json": "false"
+            },
+            {
+              "name": "mirror",
+              "json": "false"
+            },
+            {
+              "name": "cycleOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "lockRootRotation",
+              "json": "false"
+            },
+            {
+              "name": "lockRootHeightY",
+              "json": "false"
+            },
+            {
+              "name": "lockRootPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "wrapMode",
+              "json": "\"Default\""
+            },
+            {
+              "name": "loop",
+              "json": "false"
+            },
+            {
+              "name": "rotationOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "heightOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "additiveType",
+              "json": "0"
+            },
+            {
+              "name": "basePoseType",
+              "json": "0"
+            },
+            {
+              "name": "additiveSelectedAnimation",
+              "json": "\"\""
+            },
+            {
+              "name": "additiveSelectedAnimationFrameIndex",
+              "json": "0"
+            },
+            {
+              "name": "lockToRoot",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalOrientation",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionY",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "heightFromFeet",
+              "json": "false"
+            },
+            {
+              "name": "maskType",
+              "json": "\"None\""
+            },
+            {
+              "name": "maskSource",
+              "json": "\"\""
+            },
+            {
+              "name": "events",
+              "json": "[]"
+            },
+            {
+              "name": "intervals",
+              "json": "[]"
+            },
+            {
+              "name": "curves",
+              "json": "[]"
+            },
+            {
+              "name": "additiveReferencePoseFrame",
+              "json": "0.0"
+            },
+            {
+              "name": "hasAdditiveReferencePose",
+              "json": "false"
+            },
+            {
+              "name": "transformMask",
+              "json": "[]"
+            },
+            {
+              "name": "extensions",
+              "json": "{}"
+            }
+          ]
+        }
+      ],
+      "roleId": "95d40713e43755fea987f5c73a6336d9",
+      "character": "Shift钟表",
+      "revision": "20261123T150329-9f4ae991",
+      "assetId": "b5e53ab42a884d4dbe3638bed7808d67"
+    },
+    "Assets/Charactor/Shift钟表/TPose/Tpose.fbx": {
+      "path": "Assets/Charactor/Shift钟表/TPose/Tpose.fbx",
+      "kind": "tpose",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 60,
+      "sha256": "da25dbbdc0df45e58c4bd46761def7cb503e2d8a4d1e34d3b525727662f7d459",
+      "fbxSettings": [],
+      "clips": [
+        {
+          "id": "f6148badfbdd4c58bdf1908c8b1badc4",
+          "name": "Tpose",
+          "firstFrame": 0,
+          "lastFrame": 1,
+          "takeName": "",
+          "settings": []
+        }
+      ],
+      "roleId": "95d40713e43755fea987f5c73a6336d9",
+      "character": "Shift钟表",
+      "revision": "20261123T150347-96b3a3b0",
+      "assetId": "f6148badfbdd4c58bdf1908c8b1badc4"
+    },
+    "Assets/Charactor/飞碟/Model/飞碟.fbx": {
+      "path": "Assets/Charactor/飞碟/Model/飞碟.fbx",
+      "kind": "model",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 30,
+      "sha256": "84177dec4be1e2261e8ee76e05d5f1476763691a0acebb088bec5c93c1250cea",
+      "fbxSettings": [],
+      "clips": [],
+      "roleId": "e517103702405abf96ef91042dc98751",
+      "character": "飞碟",
+      "revision": "20261121T151903-01247c14",
+      "assetId": "1da8dd5983c24cb78b6fedb3831059d0"
+    },
+    "Assets/Charactor/飞碟/Animations/Idle.fbx": {
+      "path": "Assets/Charactor/飞碟/Animations/Idle.fbx",
+      "kind": "animation",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 30,
+      "sha256": "37799d1058ba3f4860446d8de2f6674e8b350e89320d763163d41bbe7a0199b9",
+      "fbxSettings": [
+        {
+          "name": "materialName",
+          "json": "\"BasedOnTextureName\""
+        },
+        {
+          "name": "materialSearch",
+          "json": "\"RecursiveUp\""
+        },
+        {
+          "name": "materialLocation",
+          "json": "\"InPrefab\""
+        },
+        {
+          "name": "globalScale",
+          "json": "1.0"
+        },
+        {
+          "name": "importVisibility",
+          "json": "true"
+        },
+        {
+          "name": "useFileUnits",
+          "json": "true"
+        },
+        {
+          "name": "useFileScale",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapes",
+          "json": "true"
+        },
+        {
+          "name": "importBlendShapeDeformPercent",
+          "json": "true"
+        },
+        {
+          "name": "importCameras",
+          "json": "true"
+        },
+        {
+          "name": "importLights",
+          "json": "true"
+        },
+        {
+          "name": "addCollider",
+          "json": "false"
+        },
+        {
+          "name": "normalSmoothingAngle",
+          "json": "60.0"
+        },
+        {
+          "name": "swapUVChannels",
+          "json": "false"
+        },
+        {
+          "name": "weldVertices",
+          "json": "true"
+        },
+        {
+          "name": "bakeAxisConversion",
+          "json": "false"
+        },
+        {
+          "name": "optimizeBones",
+          "json": "true"
+        },
+        {
+          "name": "keepQuads",
+          "json": "false"
+        },
+        {
+          "name": "indexFormat",
+          "json": "\"Auto\""
+        },
+        {
+          "name": "preserveHierarchy",
+          "json": "false"
+        },
+        {
+          "name": "generateSecondaryUV",
+          "json": "false"
+        },
+        {
+          "name": "secondaryUVAngleDistortion",
+          "json": "8.0"
+        },
+        {
+          "name": "secondaryUVAreaDistortion",
+          "json": "15.0"
+        },
+        {
+          "name": "secondaryUVHardAngle",
+          "json": "88.0"
+        },
+        {
+          "name": "secondaryUVMarginMethod",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "secondaryUVPackMargin",
+          "json": "4.0"
+        },
+        {
+          "name": "secondaryUVMinLightmapResolution",
+          "json": "40.0"
+        },
+        {
+          "name": "secondaryUVMinObjectScale",
+          "json": "1.0"
+        },
+        {
+          "name": "generateAnimations",
+          "json": "\"GenerateAnimations\""
+        },
+        {
+          "name": "isReadable",
+          "json": "false"
+        },
+        {
+          "name": "meshOptimizationFlags",
+          "json": "\"Everything\""
+        },
+        {
+          "name": "optimizeMeshPolygons",
+          "json": "true"
+        },
+        {
+          "name": "optimizeMeshVertices",
+          "json": "true"
+        },
+        {
+          "name": "skinWeights",
+          "json": "\"Standard\""
+        },
+        {
+          "name": "maxBonesPerVertex",
+          "json": "4"
+        },
+        {
+          "name": "minBoneWeight",
+          "json": "0.001"
+        },
+        {
+          "name": "importNormals",
+          "json": "\"Import\""
+        },
+        {
+          "name": "normalSmoothingSource",
+          "json": "\"PreferSmoothingGroups\""
+        },
+        {
+          "name": "importBlendShapeNormals",
+          "json": "\"Calculate\""
+        },
+        {
+          "name": "normalCalculationMode",
+          "json": "\"AreaAndAngleWeighted\""
+        },
+        {
+          "name": "importTangents",
+          "json": "\"CalculateMikk\""
+        },
+        {
+          "name": "bakeIK",
+          "json": "false"
+        },
+        {
+          "name": "resampleCurves",
+          "json": "true"
+        },
+        {
+          "name": "removeConstantScaleCurves",
+          "json": "false"
+        },
+        {
+          "name": "strictVertexDataChecks",
+          "json": "false"
+        },
+        {
+          "name": "meshCompression",
+          "json": "\"Off\""
+        },
+        {
+          "name": "importAnimation",
+          "json": "true"
+        },
+        {
+          "name": "optimizeGameObjects",
+          "json": "false"
+        },
+        {
+          "name": "extraExposedTransformPaths",
+          "json": "[]"
+        },
+        {
+          "name": "extraUserProperties",
+          "json": "[]"
+        },
+        {
+          "name": "animationCompression",
+          "json": "\"KeyframeReduction\""
+        },
+        {
+          "name": "importAnimatedCustomProperties",
+          "json": "false"
+        },
+        {
+          "name": "importConstraints",
+          "json": "false"
+        },
+        {
+          "name": "aCLCompressionLevel",
+          "json": "\"Automatic\""
+        },
+        {
+          "name": "aCLCurvePrecision",
+          "json": "false"
+        },
+        {
+          "name": "animationRotationError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationPositionError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationScaleError",
+          "json": "0.5"
+        },
+        {
+          "name": "animationWrapMode",
+          "json": "\"Default\""
+        },
+        {
+          "name": "animationType",
+          "json": "\"Generic\""
+        },
+        {
+          "name": "humanoidOversampling",
+          "json": "\"X1\""
+        },
+        {
+          "name": "motionNodeName",
+          "json": "\"\""
+        },
+        {
+          "name": "avatarSetup",
+          "json": "\"NoAvatar\""
+        },
+        {
+          "name": "sourceAvatar",
+          "json": "\"\""
+        },
+        {
+          "name": "humanDescription",
+          "json": "{\"human\": [], \"skeleton\": [], \"upperArmTwist\": 0.5, \"lowerArmTwist\": 0.5, \"upperLegTwist\": 0.5, \"lowerLegTwist\": 0.5, \"armStretch\": 0.05, \"legStretch\": 0.05, \"feetSpacing\": 0.0, \"hasTranslationDoF\": false}"
+        },
+        {
+          "name": "useSRGBMaterialColor",
+          "json": "true"
+        },
+        {
+          "name": "sortHierarchyByName",
+          "json": "true"
+        },
+        {
+          "name": "materialImportMode",
+          "json": "\"ImportViaMaterialDescription\""
+        },
+        {
+          "name": "autoGenerateAvatarMappingIfUnspecified",
+          "json": "true"
+        },
+        {
+          "name": "isVirtualGeometry",
+          "json": "false"
+        },
+        {
+          "name": "materialRemaps",
+          "json": "[]"
+        },
+        {
+          "name": "extensions",
+          "json": "{}"
+        }
+      ],
+      "clips": [
+        {
+          "id": "df671bd7beb34578a42d0a12c6edb9ed",
+          "name": "Idle",
+          "firstFrame": 0.0,
+          "lastFrame": 240.0,
+          "takeName": "",
+          "settings": [
+            {
+              "name": "loopTime",
+              "json": "true"
+            },
+            {
+              "name": "loopPose",
+              "json": "false"
+            },
+            {
+              "name": "mirror",
+              "json": "false"
+            },
+            {
+              "name": "cycleOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "lockRootRotation",
+              "json": "false"
+            },
+            {
+              "name": "lockRootHeightY",
+              "json": "false"
+            },
+            {
+              "name": "lockRootPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "wrapMode",
+              "json": "\"Default\""
+            },
+            {
+              "name": "loop",
+              "json": "false"
+            },
+            {
+              "name": "rotationOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "heightOffset",
+              "json": "0.0"
+            },
+            {
+              "name": "additiveType",
+              "json": "0"
+            },
+            {
+              "name": "basePoseType",
+              "json": "0"
+            },
+            {
+              "name": "additiveSelectedAnimation",
+              "json": "\"\""
+            },
+            {
+              "name": "additiveSelectedAnimationFrameIndex",
+              "json": "0"
+            },
+            {
+              "name": "lockToRoot",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalOrientation",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionY",
+              "json": "false"
+            },
+            {
+              "name": "keepOriginalPositionXZ",
+              "json": "false"
+            },
+            {
+              "name": "heightFromFeet",
+              "json": "false"
+            },
+            {
+              "name": "maskType",
+              "json": "\"None\""
+            },
+            {
+              "name": "maskSource",
+              "json": "\"\""
+            },
+            {
+              "name": "events",
+              "json": "[]"
+            },
+            {
+              "name": "intervals",
+              "json": "[]"
+            },
+            {
+              "name": "curves",
+              "json": "[]"
+            },
+            {
+              "name": "additiveReferencePoseFrame",
+              "json": "0.0"
+            },
+            {
+              "name": "hasAdditiveReferencePose",
+              "json": "false"
+            },
+            {
+              "name": "transformMask",
+              "json": "[]"
+            },
+            {
+              "name": "extensions",
+              "json": "{}"
+            }
+          ]
+        }
+      ],
+      "roleId": "e517103702405abf96ef91042dc98751",
+      "character": "飞碟",
+      "revision": "20261121T152246-fca89aa1",
+      "assetId": "f27f9419d9da46bbacbe8f0cc8d875e8"
+    },
+    "Assets/Charactor/飞碟/TPose/T_Pose.fbx": {
+      "path": "Assets/Charactor/飞碟/TPose/T_Pose.fbx",
+      "kind": "tpose",
+      "rig": "Generic",
+      "sourceStart": 0,
+      "sourceFps": 30,
+      "sha256": "06a8380ce6cedd0c4d5a249d4630b7b4cc5838f638b4f301523720f272898102",
+      "fbxSettings": [],
+      "clips": [
+        {
+          "id": "1da8dd5983c24cb78b6fedb3831059d0",
+          "name": "T_Pose",
+          "firstFrame": 0,
+          "lastFrame": 1,
+          "takeName": "",
+          "settings": []
+        }
+      ],
+      "roleId": "e517103702405abf96ef91042dc98751",
+      "character": "飞碟",
+      "revision": "20261121T151903-01247c14",
+      "assetId": "1da8dd5983c24cb78b6fedb3831059d0"
+    }
+  }
+}
