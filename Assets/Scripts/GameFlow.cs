@@ -26,6 +26,7 @@ namespace ShiftGoods
         [SerializeField] private Texture2D optionsButton;
         [SerializeField] private Texture2D quitButton;
         [SerializeField] private Texture2D completionArt;
+        [SerializeField] private Material countdownClockMaterial;
 
         private enum Panel { Main, Credits, Options, Quit }
         private const string MasterVolume = "ShiftGoods.MasterVolume";
@@ -35,6 +36,7 @@ namespace ShiftGoods
         private static readonly Color Cyan = new Color(0.49f, 0.97f, 1f);
 
         private string sceneName;
+        private float roundDuration;
         private float remaining;
         private float menuElapsed;
         private float completedAt;
@@ -50,6 +52,7 @@ namespace ShiftGoods
         private GUIStyle volumeTrack;
         private GUIStyle volumeThumb;
         private Texture2D menuShade;
+        private CountdownClock countdownClock;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Install()
@@ -72,6 +75,7 @@ namespace ShiftGoods
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
+            countdownClock?.Dispose();
             if (menuShade != null)
                 Destroy(menuShade);
         }
@@ -85,7 +89,10 @@ namespace ShiftGoods
             panel = Panel.Main;
             menuElapsed = 0f;
             roundActive = sceneName == FirstLevel || sceneName == SecondLevel;
-            remaining = sceneName == FirstLevel ? firstLevelSeconds : secondLevelSeconds;
+            roundDuration = roundActive
+                ? Mathf.Max(1f, sceneName == FirstLevel ? firstLevelSeconds : secondLevelSeconds)
+                : 0f;
+            remaining = roundDuration;
             if (roundActive && navigating)
                 PausePlayers();
             if (!roundActive && (sceneName == MenuScene || sceneName == EndingScene))
@@ -210,10 +217,10 @@ namespace ShiftGoods
 
             if (menu || ending)
                 DrawMenu(ending);
-            if (roundActive && !navigating)
-                DrawTimer();
             if (showCompletion)
                 DrawCompletion();
+            if ((roundActive && !navigating) || showCompletion)
+                DrawTimer();
             if (transitionFrame >= 0 && transitionFrames[transitionFrame] != null)
                 GUI.DrawTexture(Display, transitionFrames[transitionFrame], ScaleMode.ScaleAndCrop, true);
 
@@ -301,7 +308,15 @@ namespace ShiftGoods
         {
             int seconds = Mathf.CeilToInt(remaining);
             var rect = new Rect(856f, 24f, 208f, 70f);
+            if (countdownClockMaterial != null)
+            {
+                countdownClock ??= new CountdownClock(countdownClockMaterial);
+                rect.x += 42f;
+            }
+
             Paint(rect, new Color(0.04f, 0.035f, 0.16f, 0.84f));
+            countdownClock?.Draw(new Rect(818f, 11f, 108f, 108f),
+                roundDuration > 0f ? 1f - remaining / roundDuration : 0f);
             timer.normal.textColor = seconds <= 10 ? new Color(1f, 0.52f, 0.70f) : Cyan;
             GUI.Label(rect, $"{seconds / 60:00}:{seconds % 60:00}", timer);
         }
