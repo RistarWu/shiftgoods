@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 01224dbfe390e0c4998393f25bb03bd5, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
@@ -47,7 +47,7 @@ Material:
     - _Cutoff: 0.5
     - _DirectionThreshold: 0.5
     - _FadeDistance: 100
-    - _HasBaseMap: 0
+    - _HasBaseMap: 1
     - _IntensityThreshold: 0.5
     - _LightColorGain: 1
     - _LightIntensityWeight: 0

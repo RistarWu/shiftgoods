@@ -17,6 +17,19 @@ namespace ShiftGoods
         [SerializeField, Min(0.01f)] private float cameraClearance = 0.11f;
         [SerializeField, Min(0.1f)] private float mouseSensitivity = 2.2f;
         [SerializeField] private float startingPitch = 15f;
+        [SerializeField, Min(0f)]
+        [Tooltip("Seconds used to smoothly rotate the avatar toward its movement direction.")]
+        private float turnSmoothTime = 0.08f;
+        [SerializeField, Min(0.01f)]
+        [Tooltip("Seconds used to smooth the Lean animator value.")]
+        private float leanSmoothTime = 0.12f;
+        [SerializeField, Min(1f)]
+        [Tooltip("Turn angle that maps to a Lean value of +/-1.")]
+        private float leanAngle = 90f;
+        [SerializeField] private Animator Palyer;
+
+        private static readonly int MoveParameter = Animator.StringToHash("Move");
+        private static readonly int LeanParameter = Animator.StringToHash("Lean");
 
         private readonly RaycastHit[] exitFloorHits = new RaycastHit[24];
         private Collider[] overlapBuffer = new Collider[32];
@@ -33,6 +46,13 @@ namespace ShiftGoods
         private bool abilityPressed;
         private bool abilityHeld;
         private bool waitForAbilityRelease;
+        private bool moving;
+        private bool hasMoveParameter;
+        private AnimatorControllerParameterType moveParameterType = AnimatorControllerParameterType.Float;
+        private bool hasLeanParameter;
+        private float turnVelocity;
+        private float lean;
+        private float leanVelocity;
 
         private Ray AbilityAim => view.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
 
@@ -47,6 +67,7 @@ namespace ShiftGoods
             pitch = startingPitch;
             cameraArmLength = cameraDistance;
             yaw = view.transform.eulerAngles.y;
+            CacheAnimatorParameters();
         }
 
         private void OnEnable()
@@ -61,6 +82,12 @@ namespace ShiftGoods
         {
             SetHighlightedProduct(null);
             EndProductControl();
+            SetMoving(false);
+            lean = 0f;
+            leanVelocity = 0f;
+            turnVelocity = 0f;
+            if (Palyer != null && hasLeanParameter)
+                Palyer.SetFloat(LeanParameter, 0f);
             UnlockCursor();
         }
 
@@ -111,7 +138,14 @@ namespace ShiftGoods
                     SetAvatarVisible(true);
 
                 avatar.SimpleMove(movement * walkSpeed);
+                UpdateFacingAndLean();
             }
+            else
+            {
+                UpdateLean(0f);
+            }
+
+            SetMoving(possessed == null && movement.sqrMagnitude > 0.0001f);
         }
 
         private void FixedUpdate()
@@ -337,6 +371,77 @@ namespace ShiftGoods
             }
 
             return closest.collider != null;
+        }
+
+        private void CacheAnimatorParameters()
+        {
+            if (Palyer == null)
+                return;
+
+            foreach (AnimatorControllerParameter parameter in Palyer.parameters)
+            {
+                if (parameter.nameHash == MoveParameter)
+                {
+                    hasMoveParameter = true;
+                    moveParameterType = parameter.type;
+                }
+                else if (parameter.nameHash == LeanParameter)
+                    hasLeanParameter = parameter.type == AnimatorControllerParameterType.Float;
+            }
+
+            if (!hasMoveParameter)
+                Debug.LogWarning("Animator parameter 'Move' is missing; movement animation is disabled.", this);
+            if (!hasLeanParameter)
+                Debug.LogWarning("Animator parameter 'Lean' (Float) is missing; leaning is disabled.", this);
+        }
+
+        private void UpdateFacingAndLean()
+        {
+            if (movement.sqrMagnitude <= 0.0001f)
+            {
+                UpdateLean(0f);
+                return;
+            }
+
+            float targetYaw = Mathf.Atan2(movement.x, movement.z) * Mathf.Rad2Deg;
+            float currentYaw = transform.eulerAngles.y;
+            float yawDelta = Mathf.DeltaAngle(currentYaw, targetYaw);
+
+            float newYaw = Mathf.SmoothDampAngle(currentYaw, targetYaw,
+                ref turnVelocity, turnSmoothTime);
+            transform.rotation = Quaternion.Euler(0f, newYaw, 0f);
+
+            UpdateLean(Mathf.Clamp(yawDelta / leanAngle, -1f, 1f));
+        }
+
+        private void UpdateLean(float target)
+        {
+            lean = Mathf.SmoothDamp(lean, target, ref leanVelocity, leanSmoothTime);
+            if (Palyer != null && hasLeanParameter)
+                Palyer.SetFloat(LeanParameter, lean);
+        }
+
+        private void SetMoving(bool value)
+        {
+            if (value == moving)
+                return;
+
+            moving = value;
+            if (Palyer == null || !hasMoveParameter)
+                return;
+
+            switch (moveParameterType)
+            {
+                case AnimatorControllerParameterType.Int:
+                    Palyer.SetInteger(MoveParameter, moving ? 1 : 0);
+                    break;
+                case AnimatorControllerParameterType.Bool:
+                    Palyer.SetBool(MoveParameter, moving);
+                    break;
+                default:
+                    Palyer.SetFloat(MoveParameter, moving ? 1f : 0f);
+                    break;
+            }
         }
 
         private void SetAvatarVisible(bool visible)
