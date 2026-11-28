@@ -26,7 +26,9 @@ namespace ShiftGoods
         [SerializeField] private Texture2D optionsButton;
         [SerializeField] private Texture2D quitButton;
         [SerializeField] private Texture2D completionArt;
-        [SerializeField] private Material countdownClockMaterial;
+        [SerializeField] private GameObject countdownClockPrefab;
+        [SerializeField] private Vector3 firstLevelClockPosition = new Vector3(-3.05f, 0.25f, -1.94f);
+        [SerializeField] private Vector3 secondLevelClockPosition = new Vector3(-15.64f, 1.12f, -4.35f);
 
         private enum Panel { Main, Credits, Options, Quit }
         private const string MasterVolume = "ShiftGoods.MasterVolume";
@@ -52,7 +54,7 @@ namespace ShiftGoods
         private GUIStyle volumeTrack;
         private GUIStyle volumeThumb;
         private Texture2D menuShade;
-        private CountdownClock countdownClock;
+        private 倒计时钟表 countdownClock;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
         private static void Install()
@@ -75,7 +77,6 @@ namespace ShiftGoods
         private void OnDestroy()
         {
             SceneManager.sceneLoaded -= OnSceneLoaded;
-            countdownClock?.Dispose();
             if (menuShade != null)
                 Destroy(menuShade);
         }
@@ -93,6 +94,7 @@ namespace ShiftGoods
                 ? Mathf.Max(1f, sceneName == FirstLevel ? firstLevelSeconds : secondLevelSeconds)
                 : 0f;
             remaining = roundDuration;
+            BindRoundClock(scene);
             if (roundActive && navigating)
                 PausePlayers();
             if (!roundActive && (sceneName == MenuScene || sceneName == EndingScene))
@@ -100,6 +102,32 @@ namespace ShiftGoods
                 Cursor.lockState = CursorLockMode.None;
                 Cursor.visible = true;
             }
+        }
+
+        private void BindRoundClock(Scene scene)
+        {
+            countdownClock = null;
+            if (!roundActive)
+                return;
+
+            foreach (GameObject root in scene.GetRootGameObjects())
+            {
+                countdownClock = root.GetComponentInChildren<倒计时钟表>();
+                if (countdownClock)
+                    break;
+            }
+
+            if (!countdownClock && countdownClockPrefab)
+            {
+                Vector3 position = sceneName == FirstLevel ? firstLevelClockPosition : secondLevelClockPosition;
+                GameObject clock = Instantiate(countdownClockPrefab, position, Quaternion.identity);
+                SceneManager.MoveGameObjectToScene(clock, scene);
+                clock.transform.localScale *= 0.55f;
+                countdownClock = clock.GetComponent<倒计时钟表>();
+            }
+
+            if (countdownClock)
+                countdownClock.SetTime(remaining, roundDuration);
         }
 
         private void Update()
@@ -115,6 +143,8 @@ namespace ShiftGoods
                 return;
 
             remaining = Mathf.Max(0f, remaining - Time.deltaTime);
+            if (countdownClock)
+                countdownClock.SetTime(remaining, roundDuration);
             if (remaining <= 0f)
             {
                 roundActive = false;
@@ -308,15 +338,7 @@ namespace ShiftGoods
         {
             int seconds = Mathf.CeilToInt(remaining);
             var rect = new Rect(856f, 24f, 208f, 70f);
-            if (countdownClockMaterial != null)
-            {
-                countdownClock ??= new CountdownClock(countdownClockMaterial);
-                rect.x += 42f;
-            }
-
             Paint(rect, new Color(0.04f, 0.035f, 0.16f, 0.84f));
-            countdownClock?.Draw(new Rect(818f, 11f, 108f, 108f),
-                roundDuration > 0f ? 1f - remaining / roundDuration : 0f);
             timer.normal.textColor = seconds <= 10 ? new Color(1f, 0.52f, 0.70f) : Cyan;
             GUI.Label(rect, $"{seconds / 60:00}:{seconds % 60:00}", timer);
         }

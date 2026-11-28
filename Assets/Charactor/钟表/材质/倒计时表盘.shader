@@ -2,87 +2,85 @@ Shader "Hidden/ShiftGoods/CountdownClock"
 {
     Properties
     {
-        _MainTex ("钟表", 2D) = "white" {}
-        _Dial ("表盘中心与半径", Vector) = (0.5, 0.5, 0.34, 0.34)
         _DialColor ("表盘颜色", Color) = (1, 1, 1, 1)
         _ElapsedColor ("已用时间颜色", Color) = (0.91, 0.16, 0.25, 1)
-        _HandColor ("指针颜色", Color) = (0.10, 0.07, 0.17, 1)
-        [HideInInspector] _Elapsed ("已用时间", Float) = 0
-        [HideInInspector] _HandDirection ("指针方向", Vector) = (0, 1, 0, 0)
+        [HideInInspector] _Elapsed ("已用时间", Range(0, 1)) = 0
+        [HideInInspector] _DialCenter ("表盘中心", Vector) = (0, 0, 0, 0)
+        [HideInInspector] _DialRight ("表盘右方", Vector) = (1, 0, 0, 0)
+        [HideInInspector] _DialUp ("表盘上方", Vector) = (0, 1, 0, 0)
     }
 
     SubShader
     {
-        Cull Off
-        ZWrite Off
-        ZTest Always
+        Tags { "RenderType"="Opaque" "Queue"="Geometry" }
+        Cull Back
+        ZWrite On
 
         Pass
         {
             CGPROGRAM
             #pragma target 3.0
-            #pragma vertex vert_img
+            #pragma vertex Vert
             #pragma fragment Frag
+
             #include "UnityCG.cginc"
 
-            sampler2D _MainTex;
-            float4 _Dial;
             float4 _DialColor;
             float4 _ElapsedColor;
-            float4 _HandColor;
             float _Elapsed;
-            float4 _HandDirection;
+            float4 _DialCenter;
+            float4 _DialRight;
+            float4 _DialUp;
+            float4x4 _ClockWorldToLocal;
+
+            struct Varyings
+            {
+                float4 position : SV_POSITION;
+                float2 dial : TEXCOORD0;
+                float2 direction : TEXCOORD1;
+            };
+
+            Varyings Vert(appdata_base input)
+            {
+                Varyings output;
+                output.position = UnityObjectToClipPos(input.vertex);
+
+                // Project the skinned vertices into the clock root's frame.
+                float3 world = mul(unity_ObjectToWorld, input.vertex).xyz;
+                float3 relative = mul(_ClockWorldToLocal, float4(world, 1.0)).xyz - _DialCenter.xyz;
+                output.dial = float2(dot(relative, _DialRight.xyz), dot(relative, _DialUp.xyz));
+
+                float angle = saturate(_Elapsed) * 6.28318530718;
+                float sine;
+                float cosine;
+                sincos(angle, sine, cosine);
+                output.direction = float2(sine, cosine);
+                return output;
+            }
 
             float SoftStep(float distance)
             {
-                float edge = max(0.5 * fwidth(distance), 0.0001);
-                return smoothstep(-edge, edge, distance);
+                float feather = max(0.5 * fwidth(distance), 0.0001);
+                return smoothstep(-feather, feather, distance);
             }
 
-            float ElapsedSector(float2 position, float2 hand)
+            float ElapsedSector(float2 dial, float2 direction)
             {
-                float startSide = SoftStep(position.x);
-                float endSide = SoftStep(dot(position, float2(-hand.y, hand.x)));
+                float start = SoftStep(dial.x);
+                float end = SoftStep(dot(dial, float2(-direction.y, direction.x)));
                 if (_Elapsed <= 0.0)
                     return 0.0;
                 if (_Elapsed >= 1.0)
                     return 1.0;
 
-                // Half-planes intersect before 6 o'clock and unite after it.
-                return _Elapsed <= 0.5 ? min(startSide, endSide) : max(startSide, endSide);
+                // The radial sector is an intersection up to 6 o'clock and a union afterward.
+                return _Elapsed <= 0.5 ? min(start, end) : max(start, end);
             }
 
-            float HandCoverage(float2 position, float2 hand)
+            float4 Frag(Varyings input) : SV_Target
             {
-                float advance = clamp(dot(position, hand), 0.0, 0.80);
-                float needle = SoftStep(0.027 - length(position - advance * hand));
-                float hub = SoftStep(0.072 - length(position));
-                return max(needle, hub);
-            }
-
-            float CardinalTick(float2 position)
-            {
-                float2 axis = abs(position);
-                return SoftStep(min(0.029 - axis.x, 0.039 - abs(axis.y - 0.862)));
-            }
-
-            float4 Frag(v2f_img input) : SV_Target
-            {
-                float4 art = tex2D(_MainTex, input.uv);
-                float2 inDial = (input.uv - _Dial.xy) / max(_Dial.zw, float2(0.001, 0.001));
-                float radius = length(inDial);
-                float dial = SoftStep(1.0 - radius);
-                float2 hand = _HandDirection.xy;
-                float3 color = lerp(_DialColor.rgb, _ElapsedColor.rgb, ElapsedSector(inDial, hand));
-
-                float rim = 0.76 * SoftStep(0.018 - abs(radius - 0.94));
-                float ticks = max(CardinalTick(inDial), CardinalTick(inDial.yx));
-                float marks = max(max(rim, ticks), HandCoverage(inDial, hand));
-                color = lerp(color, _HandColor.rgb, marks);
-
-                // Only repaint the bright disk so the model's dark ornaments stay visible.
-                float plate = smoothstep(0.36, 0.82, dot(art.rgb, float3(0.2126, 0.7152, 0.0722)));
-                return float4(lerp(art.rgb, color, dial * plate), art.a);
+                float filled = ElapsedSector(input.dial, input.direction);
+                return float4(lerp(_DialColor.rgb, _ElapsedColor.rgb, filled), 1.0);
             }
             ENDCG
         }
